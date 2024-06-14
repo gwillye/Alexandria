@@ -2,8 +2,8 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Administrador extends Servidor {
-    private Map<String, Funcionario> servidores;
+public class Administrador extends Funcionario {
+    private Map<String, Funcionario> funcionariosMap;
     private Map<String, Administrador> administradores;
 
     public Administrador(String CPF, String nome, LocalDate dataNasc, String[] endereco, String senha, String idFuncionario, String login) {
