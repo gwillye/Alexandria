@@ -95,8 +95,8 @@ public class Emprestimo {
 
 	}
 
-	public void setDataVencimento(Date dataAtual + 14) {
-
+	public void setDataVencimento(Date dataAtual) {
+			//+14
 	}
 
 	public void devolverEmprestimo(Emprestimo emp) {
