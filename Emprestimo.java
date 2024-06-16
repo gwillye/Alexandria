@@ -15,6 +15,69 @@ public class Emprestimo {
 	private Cliente cliente;
 
 	private Funcionario funcionario;
+	
+	public Emprestimo(int idEmprestimo, Date dataEmprestimo, Date dataDevolucao, Date dataVencimento, String status,
+			Cliente cliente, Funcionario funcionario) {
+		super();
+		this.idEmprestimo = idEmprestimo;
+		this.dataEmprestimo = dataEmprestimo;
+		this.dataDevolucao = dataDevolucao;
+		this.dataVencimento = dataVencimento;
+		this.status = status;
+		this.cliente = cliente;
+		this.funcionario = funcionario;
+	}
+	
+
+	public int getIdEmprestimo() {
+		return idEmprestimo;
+	}
+
+
+	public void setIdEmprestimo(int idEmprestimo) {
+		this.idEmprestimo = idEmprestimo;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+
+	public Date getDataEmprestimo() {
+		return dataEmprestimo;
+	}
+
+
+	public Date getDataDevolucao() {
+		return dataDevolucao;
+	}
+
+
+	public Date getDataVencimento() {
+		return dataVencimento;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
 
 	public void adicionarItem(Exemplar exp) {
 
