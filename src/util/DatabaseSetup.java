@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class DatabaseSetup {
     private static final String url = "jdbc:sqlite:library.db";
 
-    public static void main(String[] args) {
+        public static void setupDatabase() { 
         String[] sqls = {
                 "CREATE TABLE IF NOT EXISTS Pessoa (" +
                 "    ID INTEGER PRIMARY KEY," +
@@ -79,7 +79,6 @@ public class DatabaseSetup {
                     stmt.execute(sql);
                 }
     
-                System.out.println("Todas as tabelas foram criadas.");
     
             } catch (SQLException e) {
                 System.err.println("Erro ao criar tabelas: " + e.getMessage());
