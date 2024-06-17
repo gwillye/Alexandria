@@ -12,28 +12,23 @@ import model.Emprestimo;
 public class ClienteDAO {
   private static final String url = "jdbc:sqlite:library.db";
 
-  //public Cliente buscaCliente(String cpf) {
-public String buscaCliente(String cpf) {
-    String sqlBuscaPessoa = "SELECT * FROM Pessoa WHERE CPF = ?";
+  public Cliente buscaCliente(String cpf) {
+    String sqlBuscaPessoa = "SELECT p.CPF, p.nome, c.dataCadastro " +
+        "FROM Pessoa p " +
+        "INNER JOIN Cliente c ON p.ID = c.ID_cliente " +
+        "WHERE p.CPF = ?";
     try (Connection conn = DriverManager.getConnection(url);
         PreparedStatement pstmtBuscaPessoa = conn.prepareStatement(sqlBuscaPessoa)) {
 
       pstmtBuscaPessoa.setString(1, cpf);
       ResultSet rsBusca = pstmtBuscaPessoa.executeQuery();
-      
-      return rsBusca.getString("nome") + " -- " + rsBusca.getString("CPF") ;
 
-      // if (rsBusca.next()) {
-      //   Cliente cliente = new Cliente(sqlBuscaPessoa, sqlBuscaPessoa);
-      //   cliente.setCpf(rsBusca.getString("CPF"));
-      //   cliente.setNome(rsBusca.getString("nome"));
-      //   cliente.setDataCadastro(rsBusca.getDate(sqlBuscaPessoa));
-      //   Emprestimo emprestimo = new Emprestimo();
-      //   emprestimo.setDataEmprestimo(rsBusca.getDate("dataEmprestimo"));
-      //   emprestimo.setDataDevolucao(rsBusca.getDate("dataDevolucao"));
+      if (rsBusca.next()) {
+        Cliente cliente = new Cliente(rsBusca.getString("CPF"), rsBusca.getString("nome"));
+        cliente.setDataCadastro(rsBusca.getDate("dataCadastro"));
 
-      //   return cliente;
-      // }
+        return cliente;
+      }
     } catch (SQLException e) {
       System.err.println("Erro ao buscar cliente: " + e.getMessage());
     }
