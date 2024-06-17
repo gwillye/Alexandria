@@ -7,11 +7,6 @@ public class Cliente extends Pessoa{
 
 	private Emprestimo[] emprestimo;
 	
-
-	public Cliente(String cpf, String nome, Date dataNasc, int idade, String Endereco, String senha, String endereco2) {
-		super(cpf, nome, dataNasc, idade, Endereco, senha, endereco2);
-		// TODO Auto-generated constructor stub
-	}
 	
 	public Cliente(String cpf, String nome) {
 		super(cpf, nome);
@@ -35,7 +30,26 @@ public class Cliente extends Pessoa{
 	}
 
 	public boolean podeEmprestar() {
-		return false;
+
+		int emprestimosAtivos = 0;
+		boolean temEmprestimoAtrasado = false;
+		boolean temEmprestimoExtraviado = false;
+
+		for (Emprestimo emp : emprestimo) {
+			if (emp != null) {
+				if (emp.getStatus().equals("ATIVO")) {
+					emprestimosAtivos++;
+				} else if (emp.getStatus().equals("ATRASADO")) {
+					temEmprestimoAtrasado = true;
+				} else if (emp.getStatus().equals("EXTRAVIADO")) {
+					temEmprestimoExtraviado = true;
+				}
+			}
+		}
+
+		// Condição para permitir ou não novo empréstimo
+		return emprestimosAtivos < 3 && !temEmprestimoAtrasado && !temEmprestimoExtraviado;
+
 	}
 
 	public void associaEmprestimo(Emprestimo emp) {

@@ -14,11 +14,17 @@ public class Funcionario extends Pessoa{
 		
 	public Funcionario(String cpf, String nome, Date dataNasc, int idade, String Endereco, String senha, int idFunc,
 			String cargo, Boolean ehAdministrador, Emprestimo[] emprestimo) {
-		super(cpf, nome, dataNasc, idade, Endereco, senha);
+		super(cpf, nome, dataNasc, Endereco, senha, cargo);
 		this.idFunc = idFunc;
 		this.cargo = cargo;
 		this.ehAdministrador = ehAdministrador;
 		this.emprestimo = emprestimo;
+	}
+
+	public Funcionario(String cpf, String nome, String cargo, Boolean ehAdministrador) {
+		super(cpf, nome);
+		this.cargo = cargo;
+    this.ehAdministrador = ehAdministrador;
 	}
 
 

@@ -1,7 +1,10 @@
 package controller;
 import dao.ClienteDAO;
+import dao.FuncionarioDAO;
 import dao.LivroDAO;
 import model.Cliente;
+import model.Exemplar;
+import model.Funcionario;
 import model.Livro;
 
 public class Main {
@@ -10,7 +13,6 @@ public class Main {
     static String url = "jdbc:sqlite:library.db";
 
     public static void main(String[] args) {
-        
     
         DatabaseSetup.setupDatabase();
         
@@ -21,13 +23,19 @@ public class Main {
 
         // Instância do LivroDAO
         LivroDAO livroDAO = new LivroDAO();
-        LivroDAO livroDAO2 = new LivroDAO();
-        LivroDAO livroDAO3 = new LivroDAO();
 
         // Cadastrar o livro
         livroDAO.salvarLivro(livro1);
-        livroDAO2.salvarLivro(livro2);
-        livroDAO3.salvarLivro(livro3);
+        livroDAO.salvarLivro(livro2);
+        livroDAO.salvarLivro(livro3);
+
+        // Dados dos exemplares a serem cadastrados
+        Exemplar exemplar1 = new Exemplar("Disponivel", 1, 101, 10, livro1);
+        Exemplar exemplar2 = new Exemplar("Disponivel", 2, 102, 20, livro2);
+
+        // Cadastrar os exemplares
+        livroDAO.salvarExemplar(exemplar1);
+        livroDAO.salvarExemplar(exemplar2);
 
         Cliente cliente1 = new Cliente("12345678901", "Ana");
         Cliente cliente2 = new Cliente("23456789012", "Bruno");
@@ -40,8 +48,16 @@ public class Main {
         clienteDAO.salvaCliente(cliente1);
         clienteDAO.salvaCliente(cliente2);
         clienteDAO.salvaCliente(cliente3);
-        
 
+        Funcionario funcionario1 = new Funcionario("45678901234", "David", "Gerente", true);
+        Funcionario funcionario2 = new Funcionario("56789012345", "Eva", "Assistente", false);
+
+        // Instância do FuncionarioDAO
+        FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+
+        // Cadastrar os funcionários
+        funcionarioDAO.salvarFuncionario(funcionario1);
+        funcionarioDAO.salvarFuncionario(funcionario2);
         
         
     }

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import model.Exemplar;
 import model.Livro;
 
 //import model.Exemplar;
@@ -38,9 +39,24 @@ public class LivroDAO {
         }
 	}
 
-	// public void salvarExemplar(Exemplar exemp) {
+	public void salvarExemplar(Exemplar exemp) {
+		String sql = "INSERT INTO Exemplar (ISBN, edicao, setor) VALUES (?, ?, ?)";
 
-	// }
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, exemp.getLivro().getIsbn());
+            pstmt.setInt(2, exemp.getEdicao());
+            pstmt.setInt(3, exemp.getSetor());
+
+            pstmt.executeUpdate();
+            System.out.println("Exemplar cadastrado com sucesso: " + exemp.getLivro().getTitulo());
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao cadastrar exemplar: " + e.getMessage());
+        }
+    }
+	
 
 	// public Exemplar buscarExemplar(int idExemplar) {
 	// 	return null;

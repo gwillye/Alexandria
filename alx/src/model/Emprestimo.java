@@ -30,7 +30,18 @@ public class Emprestimo {
 		this.funcionario = funcionario;
 	}
 	
-	
+	public void emprestimo(Cliente cliente, boolean apto) {
+		this.cliente = cliente;
+
+		if (apto) {
+			this.status = "INICIADO";
+			System.out.println("Empréstimo iniciado para o cliente: " + cliente.getNome());
+		} else {
+			System.out.println("Cliente não está apto para iniciar um novo empréstimo.");
+
+		}
+
+	}
 
 	public Emprestimo() {
 		super();

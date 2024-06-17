@@ -11,7 +11,7 @@ public class DatabaseSetup {
         String[] sqls = {
                 "CREATE TABLE IF NOT EXISTS Pessoa (" +
                 "    ID INTEGER PRIMARY KEY," +
-                "    CPF TEXT NOT NULL," +
+                "    CPF TEXT NOT NULL UNIQUE," +
                 "    nome TEXT NOT NULL," +
                 "    sobrenome TEXT NOT NULL," +
                 "    senha TEXT NOT NULL" +
@@ -45,7 +45,7 @@ public class DatabaseSetup {
                 ");",
                 "CREATE TABLE IF NOT EXISTS Exemplar (" +
                 "    ID_exemplar INTEGER PRIMARY KEY," +
-                "    ISBN TEXT," +
+                "    ISBN TEXT ," +
                 "    edicao INTEGER," +
                 "    setor TEXT," +
                 "    FOREIGN KEY (ISBN) REFERENCES Livro(ISBN)" +

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import model.Cliente;
 
 public class ClienteDAO {
-  private static final String url = "jdbc:sqlite:biblioteca.db";
+  private static final String url = "jdbc:sqlite:library.db";
 
 	public Cliente buscaCliente(String cpf) {
 		return null;

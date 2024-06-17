@@ -14,15 +14,13 @@ public class Exemplar {
 	
 	private Livro livro;
 
-	public Exemplar(int idExemplar, String estado, int edicao, int setor, int estante, Livro livro) {
-		super();
-		this.idExemplar = idExemplar;
+	public Exemplar(String estado, int edicao, int setor, int estante, Livro livro) {
 		this.estado = estado;
 		this.edicao = edicao;
 		this.setor = setor;
 		this.estante = estante;
 		this.livro = livro;
-	}
+}
 
 	public int getIdExemplar() {
 		return idExemplar;
