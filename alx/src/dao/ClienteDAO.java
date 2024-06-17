@@ -3,16 +3,42 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.Cliente;
+import model.Emprestimo;
 
 public class ClienteDAO {
   private static final String url = "jdbc:sqlite:library.db";
 
-	public Cliente buscaCliente(String cpf) {
-		return null;
-	}
+  //public Cliente buscaCliente(String cpf) {
+public String buscaCliente(String cpf) {
+    String sqlBuscaPessoa = "SELECT * FROM Pessoa WHERE CPF = ?";
+    try (Connection conn = DriverManager.getConnection(url);
+        PreparedStatement pstmtBuscaPessoa = conn.prepareStatement(sqlBuscaPessoa)) {
+
+      pstmtBuscaPessoa.setString(1, cpf);
+      ResultSet rsBusca = pstmtBuscaPessoa.executeQuery();
+      
+      return rsBusca.getString("nome") + " -- " + rsBusca.getString("CPF") ;
+
+      // if (rsBusca.next()) {
+      //   Cliente cliente = new Cliente(sqlBuscaPessoa, sqlBuscaPessoa);
+      //   cliente.setCpf(rsBusca.getString("CPF"));
+      //   cliente.setNome(rsBusca.getString("nome"));
+      //   cliente.setDataCadastro(rsBusca.getDate(sqlBuscaPessoa));
+      //   Emprestimo emprestimo = new Emprestimo();
+      //   emprestimo.setDataEmprestimo(rsBusca.getDate("dataEmprestimo"));
+      //   emprestimo.setDataDevolucao(rsBusca.getDate("dataDevolucao"));
+
+      //   return cliente;
+      // }
+    } catch (SQLException e) {
+      System.err.println("Erro ao buscar cliente: " + e.getMessage());
+    }
+    return null;
+  }
 
 	public void salvaCliente(Cliente cli) {
 		String sqlPessoa = "INSERT INTO Pessoa (CPF, nome, sobrenome, senha) VALUES (?, ?, '', '')";

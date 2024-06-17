@@ -58,7 +58,22 @@ public class Main {
         // Cadastrar os funcionários
         funcionarioDAO.salvarFuncionario(funcionario1);
         funcionarioDAO.salvarFuncionario(funcionario2);
+
+
+        String cpfBusca = "12345678901"; // CPF que você quer buscar
+        String respota = clienteDAO.buscaCliente(cpfBusca);
         
+        System.out.println(respota);
+        
+        // Cliente clienteEncontrado = clienteDAO.buscaCliente(cpfBusca);
+        // if (clienteEncontrado != null) {
+        //     System.out.println("Cliente encontrado: ");
+        //     System.out.println("CPF: " + clienteEncontrado.getCpf());
+        //     System.out.println("Nome: " + clienteEncontrado.getNome());
+        //     // Imprima outros detalhes do cliente, se houver
+        // } else {
+        //     System.out.println("Cliente com CPF " + cpfBusca + " não encontrado.");
+        // }
         
     }
 
