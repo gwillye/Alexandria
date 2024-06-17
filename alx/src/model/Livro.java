@@ -21,9 +21,6 @@ public class Livro {
         this.genero = genero;
         this.quantidadeExemplar = quantidadeExemplar;
     }
-
-	
-	
 	
 	public String getEditora() {
 		return editora;

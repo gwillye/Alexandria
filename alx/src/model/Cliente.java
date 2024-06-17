@@ -1,17 +1,18 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 public class Cliente extends Pessoa{
   
   private Date dataCadastro;
 
-	private Emprestimo[] emprestimo;
-	
+	private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();	
 	
 	public Cliente(String cpf, String nome) {
 		super(cpf, nome);
 	}
-
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -21,12 +22,12 @@ public class Cliente extends Pessoa{
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Emprestimo[] getEmprestimo() {
-		return emprestimo;
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
 	}
 
-	public void setEmprestimo(Emprestimo[] emprestimo) {
-		this.emprestimo = emprestimo;
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
 	}
 
 	public boolean podeEmprestar() {
