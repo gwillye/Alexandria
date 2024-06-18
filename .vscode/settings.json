@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "alx\\src"
+    ],
+    "java.project.referencedLibraries": [
+        "alx\\lib\\slf4j-api-1.7.36.jar",
+        "alx\\lib\\slf4j-simple-1.7.36.jar",
+        "alx\\lib\\sqlite-jdbc-3.46.0.0.jar"
+    ]
+}

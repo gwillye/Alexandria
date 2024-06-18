@@ -1,17 +1,18 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
-public class Cliente extends Pessoa{
-  
-  private Date dataCadastro;
+import java.util.List;
 
-	private Emprestimo[] emprestimo;
-	
-	
+public class Cliente extends Pessoa {
+
+	private Date dataCadastro;
+
+	private List<Emprestimo> emprestimos = new ArrayList<>();
+
 	public Cliente(String cpf, String nome) {
 		super(cpf, nome);
 	}
-
 
 	public Date getDataCadastro() {
 		return dataCadastro;
@@ -21,12 +22,8 @@ public class Cliente extends Pessoa{
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Emprestimo[] getEmprestimo() {
-		return emprestimo;
-	}
-
-	public void setEmprestimo(Emprestimo[] emprestimo) {
-		this.emprestimo = emprestimo;
+	public List<Emprestimo> getEmprestimos() {
+		return new ArrayList<>(emprestimos); // Cria uma cópia da lista
 	}
 
 	public boolean podeEmprestar() {
@@ -35,7 +32,7 @@ public class Cliente extends Pessoa{
 		boolean temEmprestimoAtrasado = false;
 		boolean temEmprestimoExtraviado = false;
 
-		for (Emprestimo emp : emprestimo) {
+		for (Emprestimo emp : emprestimos) {
 			if (emp != null) {
 				if (emp.getStatus().equals("ATIVO")) {
 					emprestimosAtivos++;
@@ -47,12 +44,12 @@ public class Cliente extends Pessoa{
 			}
 		}
 
-		// Condição para permitir ou não novo empréstimo
 		return emprestimosAtivos < 3 && !temEmprestimoAtrasado && !temEmprestimoExtraviado;
 
 	}
 
 	public void associaEmprestimo(Emprestimo emp) {
+		emprestimos.add(emp);
 
 	}
 }

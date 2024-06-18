@@ -1,16 +1,31 @@
 package controller;
 
+import dao.EmprestimoDAO;
 import model.Cliente;
 import model.Emprestimo;
 
 public class Controladora {
-  
-  public void adicionarItem(int idExemplar, int idEmprestimo) {
+	private EmprestimoDAO emprestimoDAO;
+
+	public Controladora() {
+		this.emprestimoDAO = new EmprestimoDAO(); // Inicializando emprestimoDAO
+	}
+
+	public void adicionarItem(int idExemplar, int idEmprestimo) {
 
 	}
 
-	public void registrarEmprestimo(int idEmprestimo) {
+	public void registrarEmprestimo(int idEmprestimo, Cliente cliente) {
 
+		Emprestimo emprestimo = emprestimoDAO.buscaEmprestimo(idEmprestimo);
+
+		if (emprestimo != null && emprestimo.getStatus().equals("INICIADO")) {
+			emprestimo.registrarEmprestimo(cliente);
+			emprestimoDAO.salvaEmprestimo(emprestimo);
+		} else {
+			System.out
+					.println("Não é possível registrar o empréstimo. O empréstimo não foi iniciado ou não encontrado.");
+		}
 	}
 
 	public void devolverEmprestimo(int idEmprestimo) {
@@ -18,11 +33,17 @@ public class Controladora {
 	}
 
 	public void iniciarEmprestimo(Cliente cliente) {
-		Emprestimo emprestimo = new Emprestimo();
-		boolean apto = cliente.podeEmprestar(); // Verifica se o cliente está apto para empréstimo
+		boolean apto = cliente.podeEmprestar();
 
-		emprestimo.emprestimo(cliente, apto); // Inicia o empréstimo com base na aptidão do cliente
+		if (apto) {
+			Emprestimo novoEmprestimo = new Emprestimo();
+			novoEmprestimo.emprestimo(cliente, apto); // Define o status como "INICIADO"
+			cliente.associaEmprestimo(novoEmprestimo); // Associa o empréstimo ao cliente
+
+			System.out.println("Empréstimo iniciado para o cliente: " + cliente.getNome());
+		} else {
+			System.out.println("Cliente não está apto para iniciar um novo empréstimo.");
+		}
 	}
-
 
 }
