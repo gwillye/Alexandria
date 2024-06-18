@@ -24,7 +24,7 @@ public class Emprestimo {
 	}
 
 	public Emprestimo() {
-		this.status = "INICIADO"; // Define um valor padrão para o status
+		this.status = "INICIADO";
 	}
 
 	public void emprestimo(Cliente cliente, boolean apto) {
@@ -47,8 +47,6 @@ public class Emprestimo {
 
 		this.cliente = cliente;
 
-		// Verifica se dataEmprestimo foi inicializada antes de calcular a data de
-		// vencimento
 		if (this.dataEmprestimo == null) {
 			System.out.println("Data de empréstimo não inicializada corretamente.");
 			return;
@@ -63,16 +61,14 @@ public class Emprestimo {
 	}
 
 	private Date calcularDataVencimento(Date dataEmprestimo) {
-		long prazoMilissegundos = 14 * 24 * 60 * 60 * 1000L; // 14 dias em milissegundos
+		long prazoMilissegundos = 14 * 24 * 60 * 60 * 1000L;
 		return new Date(dataEmprestimo.getTime() + prazoMilissegundos);
 	}
 
 	public void adicionarItem(Exemplar exp) {
-		// Implementar lógica para adicionar itens de empréstimo, se necessário
 	}
 
 	public void devolverEmprestimo(Emprestimo emp) {
-		// Implementar lógica para devolver empréstimo, se necessário
 	}
 
 	// Getters e Setters

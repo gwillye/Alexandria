@@ -67,10 +67,8 @@ public class ClienteDAO {
       pstmtPessoa.setString(2, cli.getNome());
       pstmtPessoa.executeUpdate();
 
-      // Recuperar o ID gerado automaticamente
       long pessoaId = pstmtPessoa.getGeneratedKeys().getLong(1);
 
-      // Inserir dados na tabela Cliente
       pstmtCliente.setLong(1, pessoaId);
       pstmtCliente.executeUpdate();
 

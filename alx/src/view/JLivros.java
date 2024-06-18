@@ -7,11 +7,14 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import dao.LivroDAO;
 import model.Livro;
@@ -19,16 +22,17 @@ import model.ModeloTabelaLivro;
 
 import javax.swing.JScrollPane;
 import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
 
 public class JLivros extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTable table;
-	private JLivros jLivro;
 	private ArrayList<Livro> livros;
-	private ArrayList<Livro> livros1;
+	private JLivros jLivros;
 
 	/**
 	 * Launch the application.
@@ -51,7 +55,7 @@ public class JLivros extends JFrame {
 	 */
 	public JLivros() {
 		
-		this.jLivro = this;
+		this.jLivros = this;
 		
 		LivroDAO dao = new LivroDAO();
 		
@@ -61,13 +65,6 @@ public class JLivros extends JFrame {
 			e.printStackTrace();
 		}
 		
-		livros1 = new ArrayList<>();
-		
-		
-		livros1.add(new Livro("12238-3-16-148410-0", "Editora ABC", "Autor A", "Todo mundo odeia Java","From Basics to Advanced", "Programming", 50));
-		
-		//livros.add(new Livro("978-85-950545-2-7", "Editora XYZ", "Autor B", "Desvendando os Segredos do Python","Aprenda a programar do zero", "Programação", 720));
-		//livros.add(new Livro("3-446-39819-X", "Editora LTDA", "Autores C e D","Algoritmos e Estruturas de Dados em Java", "Fundamentos para Programadores", "Programação", 610));
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 825, 533);
@@ -81,22 +78,18 @@ public class JLivros extends JFrame {
 		JButton btnNewButton = new JButton("Cadastrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JCadastroLivro jCadastro = new JCadastroLivro( jLivro);
-				jCadastro.setLocationRelativeTo(jCadastro);
-				jCadastro.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				jCadastro.setVisible(true);
+				
+				JCadastroLivro jCadastroLivro = new JCadastroLivro(null, jLivros);
+				jCadastroLivro.setLocationRelativeTo(jCadastroLivro);
+				jCadastroLivro.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+				jCadastroLivro.setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(51, 53, 123, 23);
+		btnNewButton.setBounds(626, 440, 123, 23);
 		contentPane.add(btnNewButton);
 		
-		textField = new JTextField();
-		textField.setBounds(199, 54, 518, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(68, 112, 636, 330);
+		scrollPane.setBounds(44, 80, 705, 312);
 		contentPane.add(scrollPane);
 		
 		ModeloTabelaLivro modeloTabela = new ModeloTabelaLivro(livros);
@@ -104,6 +97,32 @@ public class JLivros extends JFrame {
 		table = new JTable();
 		table.setModel(modeloTabela);
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel = new JLabel("Livros Cadastrados");
+		lblNewLabel.setBounds(49, 56, 155, 14);
+		contentPane.add(lblNewLabel);
+		
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getButton()==1) {
+					try {
+						Livro livroSelecionado = dao.consultaLivro(modeloTabela.getValueAt(table.getSelectedRow(),0).toString());
+						
+						JCadastroLivro jCadastroLivro = new JCadastroLivro(livroSelecionado, jLivros);
+						jCadastroLivro.setLocationRelativeTo(jCadastroLivro);
+						jCadastroLivro.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+						jCadastroLivro.setVisible(true);
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		
+		
 		
 	}
 }

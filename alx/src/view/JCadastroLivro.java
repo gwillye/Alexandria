@@ -26,10 +26,10 @@ public class JCadastroLivro extends JFrame {
 	private JTextField textFieldAutor;
 	private JTextField textFieldEditora;
 	private JLabel lblNewLabel_2;
-	private JButton btnNewButton_1;
 	private JTextField textFieldGenero;
 	private JTextField textFieldSubtitulo;
 	private JButton btnNewButton;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -38,7 +38,7 @@ public class JCadastroLivro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JCadastroLivro frame = new JCadastroLivro(null);
+					JCadastroLivro frame = new JCadastroLivro(null,null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +50,7 @@ public class JCadastroLivro extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JCadastroLivro (JLivros jLivro) {
+	public JCadastroLivro (Livro livroSelecionado, JLivros jLivro) {
 		LivroDAO dao = new LivroDAO();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -122,22 +122,55 @@ public class JCadastroLivro extends JFrame {
 		lblNewLabel_1_1_1.setBounds(22, 169, 62, 14);
 		contentPane.add(lblNewLabel_1_1_1);
 		
-		btnNewButton = new JButton("Salvar");
+		btnNewButton = new JButton(livroSelecionado == null ?"Adicionar":"Alterar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				Livro livro = new Livro(textFieldISBN.getText(), textFieldEditora.getText(),textFieldAutor.getText(),textFieldTitulo.getText(),textFieldSubtitulo.getText(),textFieldGenero.getText(), 1);
 				
-				dao.salvarLivro(livro);
-				abrirTelaPrincipal(jLivro);
+				if(livroSelecionado == null) {
+					dao.salvarLivro(livro);
+					
+				}else {
+					dao.atualizarLivro(livro);
+				}
+				
+				abrirTelaLivros(jLivro);
 			}
 		});
+		
 		btnNewButton.setBounds(314, 224, 89, 23);
 		contentPane.add(btnNewButton);
 		
+		btnNewButton_1 = new JButton("Excluir");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dao.excluirLivro(livroSelecionado.getIsbn());
+				abrirTelaLivros(jLivro);
+			}
+		});
+		btnNewButton_1.setBackground(Color.RED);
+		btnNewButton_1.setForeground(Color.WHITE);
+		btnNewButton_1.setBounds(32, 224, 89, 23);
+		btnNewButton_1.setVisible(false);
+		contentPane.add(btnNewButton_1);
+		
+		if(livroSelecionado != null) {
+			
+			btnNewButton_1.setVisible(true);
+			
+			textFieldAutor.setText(livroSelecionado.getAutor());
+			textFieldGenero.setText(livroSelecionado.getGenero());
+			textFieldTitulo.setText(livroSelecionado.getTitulo());
+			textFieldSubtitulo.setText(livroSelecionado.getSubtitulo());
+			textFieldEditora.setText(livroSelecionado.getEditora());
+			textFieldISBN.setText(livroSelecionado.getIsbn());
+		}
+		
+		
 	}
 	
-	private void abrirTelaPrincipal(JLivros jLivro) {
+	private void abrirTelaLivros(JLivros jLivro) {
 		jLivro.dispose();
 		dispose();
 		jLivro = new JLivros();
