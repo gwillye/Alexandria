@@ -3,7 +3,12 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import model.Exemplar;
 import model.Livro;
@@ -56,6 +61,37 @@ public class LivroDAO {
 
 	public Exemplar buscarExemplar(int idExemplar) {
 		return null;
+	}
+
+	public ArrayList<Livro> listarLivro() throws Exception {
+		ArrayList<Livro> livros = new ArrayList<>();
+		
+		String sql = " SELECT * FROM LIVRO  ";
+		try (Connection conn = DriverManager.getConnection(url);
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery(sql)) {
+
+				while (rs.next()) {
+						String ISBN = rs.getString("ISBN");
+						String editora = rs.getString("editora");
+						String autor = rs.getString("autor");
+						String titulo = rs.getString("titulo");
+						String subtitulo = rs.getString("subtitulo");
+						String genero = rs.getString("genero");
+						int quantidadeExemplar = rs.getInt("quantidade_exemplar");
+
+						Livro livro = new Livro(ISBN, editora, autor, titulo, subtitulo, genero, quantidadeExemplar);
+						livros.add(livro);
+				}
+		} catch (SQLException e) {
+				throw new Exception("Erro ao listar livros: " + e.getMessage());
+		} 
+		
+		if(livros.size() < 0) {
+			JOptionPane.showMessageDialog(null, "Não há livros cadastrados ", "", JOptionPane.WARNING_MESSAGE);
+			throw new Exception("Não há livros cadastrados ");
+		}
+		return livros;
 	}
 
 }
