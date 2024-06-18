@@ -2,16 +2,16 @@ package model;
 
 import java.util.Date;
 
-public class Funcionario extends Pessoa{
-  
-  private int idFunc;
+public class Funcionario extends Pessoa {
+
+	private int idFunc;
 
 	private String cargo;
 
 	private Boolean ehAdministrador;
 
 	private Emprestimo[] emprestimo;
-		
+
 	public Funcionario(String cpf, String nome, Date dataNasc, int idade, String Endereco, String senha, int idFunc,
 			String cargo, Boolean ehAdministrador, Emprestimo[] emprestimo) {
 		super(cpf, nome, dataNasc, Endereco, senha, cargo);
@@ -24,14 +24,18 @@ public class Funcionario extends Pessoa{
 	public Funcionario(String cpf, String nome, String cargo, Boolean ehAdministrador) {
 		super(cpf, nome);
 		this.cargo = cargo;
-    this.ehAdministrador = ehAdministrador;
+		this.ehAdministrador = ehAdministrador;
 	}
 
+	public Funcionario(String cpf, String nome, Boolean ehAdministrador) {
+		super(cpf, nome);
+		this.ehAdministrador = ehAdministrador;
+	}
 
 	public int getIdFunc() {
 		return idFunc;
 	}
-	
+
 	public void setIdFunc(int idFunc) {
 		this.idFunc = idFunc;
 	}

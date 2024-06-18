@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Cliente extends Pessoa{
-  
-  private Date dataCadastro;
+public class Cliente extends Pessoa {
+
+	private Date dataCadastro;
 
 	private List<Emprestimo> emprestimos = new ArrayList<Emprestimo>();	
 	
@@ -36,7 +36,7 @@ public class Cliente extends Pessoa{
 		boolean temEmprestimoAtrasado = false;
 		boolean temEmprestimoExtraviado = false;
 
-		for (Emprestimo emp : emprestimo) {
+		for (Emprestimo emp : emprestimos) {
 			if (emp != null) {
 				if (emp.getStatus().equals("ATIVO")) {
 					emprestimosAtivos++;
@@ -48,12 +48,12 @@ public class Cliente extends Pessoa{
 			}
 		}
 
-		// Condição para permitir ou não novo empréstimo
 		return emprestimosAtivos < 3 && !temEmprestimoAtrasado && !temEmprestimoExtraviado;
 
 	}
 
 	public void associaEmprestimo(Emprestimo emp) {
+		emprestimos.add(emp);
 
 	}
 }
