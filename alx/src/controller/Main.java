@@ -1,13 +1,12 @@
 package controller;
 
-import dao.ClienteDAO;
-import dao.FuncionarioDAO;
-import dao.LivroDAO;
-import model.Cliente;
-import model.Emprestimo;
-import model.Exemplar;
-import model.Funcionario;
-import model.Livro;
+import model.dao.ClienteDAO;
+import model.dao.FuncionarioDAO;
+
+import model.entity.Cliente;
+
+import model.entity.Funcionario;
+
 
 public class Main {
 

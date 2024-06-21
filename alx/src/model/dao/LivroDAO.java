@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import model.Exemplar;
-import model.Livro;
+import model.entity.Exemplar;
+import model.entity.Livro;
 
 //import model.Exemplar;
 

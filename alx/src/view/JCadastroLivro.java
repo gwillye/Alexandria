@@ -9,13 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import dao.LivroDAO;
-import model.Livro;
+import model.dao.LivroDAO;
+import model.entity.Livro;
 
 public class JCadastroLivro extends JFrame {
 

@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 import java.sql.Statement;
 import java.sql.Connection;
@@ -7,10 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Cliente;
-import model.Emprestimo;
-import model.Funcionario;
-import model.ItemDeEmprestimo;
+import model.entity.Cliente;
+import model.entity.Emprestimo;
+import model.entity.Funcionario;
+import model.entity.ItemDeEmprestimo;
 
 public class EmprestimoDAO {
 	private static final String url = "jdbc:sqlite:library.db";

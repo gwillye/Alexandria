@@ -14,9 +14,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 
 
-import dao.LivroDAO;
-import model.Livro;
-import model.ModeloTabelaLivro;
+import model.dao.LivroDAO;
+import model.entity.Livro;
 
 import javax.swing.JScrollPane;
 import java.awt.Color;

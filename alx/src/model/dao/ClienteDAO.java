@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import model.Cliente;
-import model.Emprestimo;
+import model.entity.Cliente;
 
 public class ClienteDAO {
   private static final String url = "jdbc:sqlite:library.db";

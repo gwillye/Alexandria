@@ -1,8 +1,8 @@
 package controller;
 
-import dao.EmprestimoDAO;
-import model.Cliente;
-import model.Emprestimo;
+import model.dao.EmprestimoDAO;
+import model.entity.Cliente;
+import model.entity.Emprestimo;
 
 public class Controladora {
 	private EmprestimoDAO emprestimoDAO;

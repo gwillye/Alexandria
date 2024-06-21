@@ -1,4 +1,4 @@
-package dao;
+package model.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Funcionario;
+import model.entity.Funcionario;
 
 public class FuncionarioDAO {
     private static final String url = "jdbc:sqlite:library.db";
