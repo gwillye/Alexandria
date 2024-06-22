@@ -8,7 +8,7 @@ public class Controladora {
 	private EmprestimoDAO emprestimoDAO;
 
 	public Controladora() {
-		this.emprestimoDAO = new EmprestimoDAO(); // Inicializando emprestimoDAO
+		this.emprestimoDAO = new EmprestimoDAO();
 	}
 
 	public void adicionarItem(int idExemplar, int idEmprestimo) {
