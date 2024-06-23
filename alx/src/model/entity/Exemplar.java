@@ -1,26 +1,28 @@
 package model.entity;
 
 public class Exemplar {
-  
-  private int idExemplar;
 
-	private String estado;
+	private int idExemplar;
 
 	private int edicao;
 
 	private int setor;
 
 	private int estante;
-	
+
 	private Livro livro;
 
-	public Exemplar(String estado, int edicao, int setor, int estante, Livro livro) {
-		this.estado = estado;
+	public Exemplar(int edicao, int setor, int estante, Livro livro) {
+
 		this.edicao = edicao;
 		this.setor = setor;
 		this.estante = estante;
 		this.livro = livro;
-}
+	}
+
+	public Exemplar(int idExemplar2, Livro livro2, int edicao2, int setor2) {
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getIdExemplar() {
 		return idExemplar;
@@ -46,10 +48,6 @@ public class Exemplar {
 		this.livro = livro;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
-
 	public int getSetor() {
 		return setor;
 	}
@@ -57,8 +55,6 @@ public class Exemplar {
 	public int getEstante() {
 		return estante;
 	}
-
-	
 
 	// public void vinculaEmprestimo(Emprestimo emp) {
 

@@ -23,7 +23,7 @@ public class LivroDAO {
 		String sql = "INSERT INTO Livro (ISBN, editora, autor, titulo, subtitulo, genero, quantidade_exemplar) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try (Connection conn = DriverManager.getConnection(url);
-			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 			pstmt.setString(1, livro.getIsbn());
 			pstmt.setString(2, livro.getEditora());
@@ -43,133 +43,110 @@ public class LivroDAO {
 
 	public ArrayList<Livro> listarLivro() throws Exception {
 		ArrayList<Livro> livros = new ArrayList<>();
-		
+
 		String sql = " SELECT * FROM LIVRO  ";
 		try (Connection conn = DriverManager.getConnection(url);
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery(sql)) {
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
 
-				while (rs.next()) {
-						String ISBN = rs.getString("ISBN");
-						String editora = rs.getString("editora");
-						String autor = rs.getString("autor");
-						String titulo = rs.getString("titulo");
-						String subtitulo = rs.getString("subtitulo");
-						String genero = rs.getString("genero");
-						int quantidadeExemplar = rs.getInt("quantidade_exemplar");
+			while (rs.next()) {
+				String ISBN = rs.getString("ISBN");
+				String editora = rs.getString("editora");
+				String autor = rs.getString("autor");
+				String titulo = rs.getString("titulo");
+				String subtitulo = rs.getString("subtitulo");
+				String genero = rs.getString("genero");
+				int quantidadeExemplar = rs.getInt("quantidade_exemplar");
 
-						Livro livro = new Livro(ISBN, editora, autor, titulo, subtitulo, genero, quantidadeExemplar);
-						livros.add(livro);
-				}
+				Livro livro = new Livro(ISBN, editora, autor, titulo, subtitulo, genero, quantidadeExemplar);
+				livros.add(livro);
+			}
 		} catch (SQLException e) {
-				throw new Exception("Erro ao listar livros: " + e.getMessage());
-		} 
-		
-		if(livros.size() < 0) {
+			throw new Exception("Erro ao listar livros: " + e.getMessage());
+		}
+
+		if (livros.size() < 0) {
 			JOptionPane.showMessageDialog(null, "Não há livros cadastrados ", "", JOptionPane.WARNING_MESSAGE);
 			throw new Exception("Não há livros cadastrados ");
 		}
 		return livros;
 	}
 
-	public void salvarExemplar(Exemplar exemp) {
-		String sql = "INSERT INTO Exemplar (ISBN, edicao, setor) VALUES (?, ?, ?)";
-
-		try (Connection conn = DriverManager.getConnection(url);
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			pstmt.setString(1, exemp.getLivro().getIsbn());
-			pstmt.setInt(2, exemp.getEdicao());
-			pstmt.setInt(3, exemp.getSetor());
-
-			pstmt.executeUpdate();
-			System.out.println("Exemplar cadastrado com sucesso: " + exemp.getLivro().getTitulo());
-
-		} catch (SQLException e) {
-			System.err.println("Erro ao cadastrar exemplar: " + e.getMessage());
-		}
-	}
-
-	public Exemplar buscarExemplar(int idExemplar) {
-		return null;
-	}
-
 	public void excluirLivro(String isbn) {
 		String sql = "DELETE FROM Livro WHERE ISBN = ?";
 
 		try (Connection conn = DriverManager.getConnection(url);
-				 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-				pstmt.setString(1, isbn);
-				int affectedRows = pstmt.executeUpdate();
+			pstmt.setString(1, isbn);
+			int affectedRows = pstmt.executeUpdate();
 
-				if (affectedRows > 0) {
-						System.out.println("Livro excluído com sucesso: " + isbn);
-				} else {
-						System.out.println("Nenhum livro encontrado com o ISBN: " + isbn);
-				}
+			if (affectedRows > 0) {
+				System.out.println("Livro excluído com sucesso: " + isbn);
+			} else {
+				System.out.println("Nenhum livro encontrado com o ISBN: " + isbn);
+			}
 
 		} catch (SQLException e) {
-				System.err.println("Erro ao excluir livro: " + e.getMessage());
+			System.err.println("Erro ao excluir livro: " + e.getMessage());
 		}
-}
+	}
 
-public void atualizarLivro(Livro livro) {
+	public void atualizarLivro(Livro livro) {
 		String sql = "UPDATE Livro SET editora = ?, autor = ?, titulo = ?, subtitulo = ?, genero = ?, quantidade_exemplar = ? WHERE ISBN = ?";
 
 		try (Connection conn = DriverManager.getConnection(url);
-				 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-				pstmt.setString(1, livro.getEditora());
-				pstmt.setString(2, livro.getAutor());
-				pstmt.setString(3, livro.getTitulo());
-				pstmt.setString(4, livro.getSubtitulo());
-				pstmt.setString(5, livro.getGenero());
-				pstmt.setInt(6, livro.getQuantidadeExemplar());
-				pstmt.setString(7, livro.getIsbn());
+			pstmt.setString(1, livro.getEditora());
+			pstmt.setString(2, livro.getAutor());
+			pstmt.setString(3, livro.getTitulo());
+			pstmt.setString(4, livro.getSubtitulo());
+			pstmt.setString(5, livro.getGenero());
+			pstmt.setInt(6, livro.getQuantidadeExemplar());
+			pstmt.setString(7, livro.getIsbn());
 
-				int affectedRows = pstmt.executeUpdate();
+			int affectedRows = pstmt.executeUpdate();
 
-				if (affectedRows > 0) {
-						System.out.println("Livro atualizado com sucesso: " + livro.getTitulo());
-				} else {
-						System.out.println("Nenhum livro encontrado com o ISBN: " + livro.getIsbn());
-				}
+			if (affectedRows > 0) {
+				System.out.println("Livro atualizado com sucesso: " + livro.getTitulo());
+			} else {
+				System.out.println("Nenhum livro encontrado com o ISBN: " + livro.getIsbn());
+			}
 
 		} catch (SQLException e) {
-				System.err.println("Erro ao atualizar livro: " + e.getMessage());
+			System.err.println("Erro ao atualizar livro: " + e.getMessage());
 		}
-}
+	}
 
-public Livro consultaLivro(String isbn) {
+	public Livro consultaLivro(String isbn) {
 		String sql = "SELECT * FROM Livro WHERE ISBN = ?";
 
 		try (Connection conn = DriverManager.getConnection(url);
-				 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-				pstmt.setString(1, isbn);
-				ResultSet result = pstmt.executeQuery();
+			pstmt.setString(1, isbn);
+			ResultSet result = pstmt.executeQuery();
 
-				if (result.next()) {
-						String editora = result.getString("editora");
-						String autor = result.getString("autor");
-						String titulo = result.getString("titulo");
-						String subtitulo = result.getString("subtitulo");
-						String genero = result.getString("genero");
-						int quantidadeExemplar = result.getInt("quantidade_exemplar");
+			if (result.next()) {
+				String editora = result.getString("editora");
+				String autor = result.getString("autor");
+				String titulo = result.getString("titulo");
+				String subtitulo = result.getString("subtitulo");
+				String genero = result.getString("genero");
+				int quantidadeExemplar = result.getInt("quantidade_exemplar");
 
-						Livro livro = new Livro(isbn, editora, autor, titulo, subtitulo, genero, quantidadeExemplar);
-						
-						return livro;
-				} else {
-						System.out.println("Nenhum livro encontrado com o ISBN: " + isbn);
-				}
+				Livro livro = new Livro(isbn, editora, autor, titulo, subtitulo, genero, quantidadeExemplar);
+
+				return livro;
+			} else {
+				System.out.println("Nenhum livro encontrado com o ISBN: " + isbn);
+			}
 
 		} catch (SQLException e) {
-				System.err.println("Erro ao consultar livro: " + e.getMessage());
+			System.err.println("Erro ao consultar livro: " + e.getMessage());
 		}
 		return null;
-}
-
+	}
 
 }

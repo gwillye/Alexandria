@@ -1,17 +1,23 @@
 package controller;
 
 import model.dao.EmprestimoDAO;
+import model.dao.ExemplarDAO;
 import model.entity.Cliente;
 import model.entity.Emprestimo;
+import model.entity.Exemplar;
 
 public class Controladora {
 	private EmprestimoDAO emprestimoDAO;
+	private ExemplarDAO exemplarDAO;
 
 	public Controladora() {
 		this.emprestimoDAO = new EmprestimoDAO();
+		this.exemplarDAO = new ExemplarDAO();
 	}
 
 	public void adicionarItem(int idExemplar, int idEmprestimo) {
+		Exemplar exp = exemplarDAO.buscarExemplar(idExemplar);
+		Emprestimo emp = emprestimoDAO.buscaEmprestimo(idEmprestimo);
 
 	}
 
@@ -37,8 +43,8 @@ public class Controladora {
 
 		if (apto) {
 			Emprestimo novoEmprestimo = new Emprestimo();
-			novoEmprestimo.emprestimo(cliente, apto); // Define o status como "INICIADO"
-			cliente.associaEmprestimo(novoEmprestimo); // Associa o empréstimo ao cliente
+			novoEmprestimo.emprestimo(cliente, apto);
+			cliente.associaEmprestimo(novoEmprestimo);
 
 			System.out.println("Empréstimo iniciado para o cliente: " + cliente.getNome());
 		} else {

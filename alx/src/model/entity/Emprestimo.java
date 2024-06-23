@@ -1,26 +1,30 @@
 package model.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Emprestimo {
 
 	private int idEmprestimo;
-	private Date dataEmprestimo;
-	private Date dataDevolucao;
-	private Date dataVencimento;
-	private String status;
-	private Cliente cliente;
-	private Funcionario funcionario;
 
-	public Emprestimo(int idEmprestimo, Date dataEmprestimo, Date dataDevolucao, Date dataVencimento, String status,
+	private Date dataEmprestimo;
+
+	private String status;
+
+	private Cliente cliente;
+
+	private Funcionario funcionario;
+	private List<Exemplar> listaExemplares;
+
+	public Emprestimo(int idEmprestimo, Date dataEmprestimo, String status,
 			Cliente cliente, Funcionario funcionario) {
 		this.idEmprestimo = idEmprestimo;
 		this.dataEmprestimo = dataEmprestimo;
-		this.dataDevolucao = dataDevolucao;
-		this.dataVencimento = dataVencimento;
 		this.status = status;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
+		listaExemplares = new ArrayList<>();
 	}
 
 	public Emprestimo() {
@@ -52,20 +56,17 @@ public class Emprestimo {
 			return;
 		}
 
-		this.dataVencimento = calcularDataVencimento(this.dataEmprestimo);
+		// this.dataVencimento = calcularDataVencimento(this.dataEmprestimo);
 		this.status = "ATIVO";
 		System.out.println("Empréstimo registrado para o cliente: " + cliente.getNome());
 		System.out.println("Data de Empréstimo: " + this.dataEmprestimo);
-		System.out.println("Data de Vencimento: " + this.dataVencimento);
+		// System.out.println("Data de Vencimento: " + this.dataVencimento);
 		System.out.println("Status " + this.status);
 	}
 
-	private Date calcularDataVencimento(Date dataEmprestimo) {
-		long prazoMilissegundos = 14 * 24 * 60 * 60 * 1000L;
-		return new Date(dataEmprestimo.getTime() + prazoMilissegundos);
-	}
-
 	public void adicionarItem(Exemplar exp) {
+		listaExemplares.add(exp);
+
 	}
 
 	public void devolverEmprestimo(Emprestimo emp) {
@@ -103,22 +104,6 @@ public class Emprestimo {
 
 	public void setDataEmprestimo(Date dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
-	}
-
-	public Date getDataDevolucao() {
-		return dataDevolucao;
-	}
-
-	public void setDataDevolucao(Date dataDevolucao) {
-		this.dataDevolucao = dataDevolucao;
-	}
-
-	public Date getDataVencimento() {
-		return dataVencimento;
-	}
-
-	public void setDataVencimento(Date dataVencimento) {
-		this.dataVencimento = dataVencimento;
 	}
 
 	public String getStatus() {
