@@ -1,6 +1,7 @@
 package model.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class ItemDeEmprestimo {
 
@@ -10,6 +11,7 @@ public class ItemDeEmprestimo {
 	private Date dataPrevistaDevolucao;
 	private Emprestimo emprestimo;
 	private Exemplar exemplar;
+	private List<ItemDeEmprestimo> listaItemsDeEmprestimos;
 
 	public ItemDeEmprestimo(int idItemEmp, Emprestimo emprestimo, Exemplar exemplar, Date dataDevolucao,
 			Date dataPrevistaDevolucao, Date dataEmprestimoItem) {
@@ -19,6 +21,17 @@ public class ItemDeEmprestimo {
 		this.dataDevolucao = dataDevolucao;
 		this.dataPrevistaDevolucao = dataPrevistaDevolucao;
 		this.dataEmprestimoItem = dataEmprestimoItem;
+	}
+
+	public void itemDeEmprestimo(Emprestimo emp, Exemplar exp) {
+		ItemDeEmprestimo item = new ItemDeEmprestimo(idItemEmp, emp, exp, dataDevolucao, dataPrevistaDevolucao,
+				dataEmprestimoItem);
+		listaItemsDeEmprestimos.add(item);
+
+	}
+
+	public void vincularEmprestimo(Emprestimo emp) {
+		this.emprestimo = emp;
 	}
 
 	public int getIdItemEmp() {

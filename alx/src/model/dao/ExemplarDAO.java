@@ -19,7 +19,7 @@ public class ExemplarDAO {
 
     public Exemplar buscarExemplar(int idExemplar) {
 
-        String sql = "SELECT * FROM Exemplar WHERE id = ?";
+        String sql = "SELECT * FROM Exemplar WHERE id_exemplar = ?";
         Exemplar exemplar = null;
 
         try (Connection conn = DriverManager.getConnection(url);

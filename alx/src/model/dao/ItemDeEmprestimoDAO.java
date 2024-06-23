@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import model.entity.Emprestimo;
 import model.entity.Exemplar;
@@ -17,19 +15,20 @@ public class ItemDeEmprestimoDAO {
 
     private static final String url = "jdbc:sqlite:library.db";
 
-    // Método para listar todos os itens de empréstimo
-    public List<ItemDeEmprestimo> listarItensDeEmprestimo() throws SQLException {
-        List<ItemDeEmprestimo> itens = new ArrayList<>();
-        String sql = "SELECT * FROM ItemDeEmprestimo";
+    // Método para buscar um item de empréstimo por ID
+    public ItemDeEmprestimo buscaItemDeEmprestimo(int idItemEmprestimo) throws SQLException {
+        String sql = "SELECT * FROM ItemEmprestimo WHERE ID_exemplar = ?";
+        ItemDeEmprestimo item = null;
 
         try (Connection conn = DriverManager.getConnection(url);
-                PreparedStatement pstmt = conn.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            while (rs.next()) {
-                int idItemEmp = rs.getInt("idItemEmp");
-                int idExemplar = rs.getInt("ID_exemplar"); // Nome da coluna no banco de dados
-                int idEmprestimo = rs.getInt("ID_emprestimo"); // Nome da coluna no banco de dados
+            pstmt.setInt(1, idItemEmprestimo);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int idExemplar = rs.getInt("id_exemplar");
+                int idEmprestimo = rs.getInt("id_emprestimo");
                 Date dataEmprestimoItem = rs.getDate("data_emprestimo");
                 Date dataDevolucao = rs.getDate("data_devolucao");
                 Date dataPrevistaDevolucao = rs.getDate("data_prevista_devolucao");
@@ -37,13 +36,29 @@ public class ItemDeEmprestimoDAO {
                 Emprestimo emprestimo = buscarEmprestimoPorId(idEmprestimo);
                 Exemplar exemplar = buscarExemplarPorId(idExemplar);
 
-                ItemDeEmprestimo item = new ItemDeEmprestimo(idItemEmp, emprestimo, exemplar,
+                item = new ItemDeEmprestimo(idItemEmprestimo, emprestimo, exemplar,
                         dataDevolucao, dataPrevistaDevolucao, dataEmprestimoItem);
-                itens.add(item);
             }
         }
 
-        return itens;
+        return item;
+    }
+
+    public void salvarItemDeEmprestimo(ItemDeEmprestimo item) throws SQLException {
+        String sql = "INSERT INTO ItemDeEmprestimo (ID_exemplar, ID_emprestimo, data_emprestimo, data_devolucao, data_prevista_devolucao) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, item.getExemplar().getIdExemplar());
+            pstmt.setInt(2, item.getEmprestimo().getIdEmprestimo());
+            pstmt.setDate(3, new java.sql.Date(item.getDataEmprestimoItem().getTime()));
+            pstmt.setDate(4, new java.sql.Date(item.getDataDevolucao().getTime()));
+            pstmt.setDate(5, new java.sql.Date(item.getDataPrevistaDevolucao().getTime()));
+
+            pstmt.executeUpdate();
+            System.out.println("Item de empréstimo cadastrado com sucesso");
+        }
     }
 
     private Emprestimo buscarEmprestimoPorId(int idEmprestimo) throws SQLException {

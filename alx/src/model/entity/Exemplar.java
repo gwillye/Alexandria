@@ -8,15 +8,12 @@ public class Exemplar {
 
 	private int setor;
 
-	private int estante;
-
 	private Livro livro;
 
 	public Exemplar(int edicao, int setor, int estante, Livro livro) {
 
 		this.edicao = edicao;
 		this.setor = setor;
-		this.estante = estante;
 		this.livro = livro;
 	}
 
@@ -52,13 +49,9 @@ public class Exemplar {
 		return setor;
 	}
 
-	public int getEstante() {
-		return estante;
+	public void vinculaEmprestimo(Emprestimo emp) {
+
 	}
-
-	// public void vinculaEmprestimo(Emprestimo emp) {
-
-	// }
 
 	public void setEstado(String estado) {
 

@@ -1,23 +1,32 @@
 package controller;
 
+import java.sql.SQLException;
+
 import model.dao.EmprestimoDAO;
 import model.dao.ExemplarDAO;
+import model.dao.ItemDeEmprestimoDAO;
 import model.entity.Cliente;
 import model.entity.Emprestimo;
 import model.entity.Exemplar;
+import model.entity.ItemDeEmprestimo;
 
 public class Controladora {
 	private EmprestimoDAO emprestimoDAO;
 	private ExemplarDAO exemplarDAO;
+	private ItemDeEmprestimoDAO itemDeEmprestimoDAO;
 
 	public Controladora() {
 		this.emprestimoDAO = new EmprestimoDAO();
 		this.exemplarDAO = new ExemplarDAO();
+		this.itemDeEmprestimoDAO = new ItemDeEmprestimoDAO();
 	}
 
-	public void adicionarItem(int idExemplar, int idEmprestimo) {
+	public void adicionarItem(int idExemplar, int idEmprestimo) throws SQLException {
 		Exemplar exp = exemplarDAO.buscarExemplar(idExemplar);
 		Emprestimo emp = emprestimoDAO.buscaEmprestimo(idEmprestimo);
+		ItemDeEmprestimo item = itemDeEmprestimoDAO.buscaItemDeEmprestimo(idEmprestimo);
+		// exp.vinculaEmprestimo(); // campo nulo por enquanto...
+		itemDeEmprestimoDAO.salvarItemDeEmprestimo(item);
 
 	}
 
