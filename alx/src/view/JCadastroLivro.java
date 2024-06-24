@@ -1,15 +1,19 @@
 package view;
 
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import model.dao.LivroDAO;
 import model.entity.Livro;
 
@@ -26,22 +30,38 @@ public class JCadastroLivro extends JFrame {
 	private JTextField textFieldSubtitulo;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
-	private JLivros jLivro;
 
-	public JCadastroLivro(Livro livroSelecionado, JLivros jLivro) {
-		this.jLivro = jLivro;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JCadastroLivro frame = new JCadastroLivro(null,null);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JCadastroLivro (Livro livroSelecionado, JLivros jLivro) {
 		LivroDAO dao = new LivroDAO();
-
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Alterado para DISPOSE_ON_CLOSE
-
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(255, 255, 255));
+		contentPane.setBackground(new Color(240,240,240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		JLabel lblNewLabel = new JLabel("Titulo");
 		lblNewLabel.setBounds(22, 11, 45, 14);
 		contentPane.add(lblNewLabel);
@@ -81,53 +101,52 @@ public class JCadastroLivro extends JFrame {
 		lblNewLabel_2 = new JLabel("Subtitulo");
 		lblNewLabel_2.setBounds(22, 55, 62, 14);
 		contentPane.add(lblNewLabel_2);
-
+		
 		textFieldGenero = new JTextField();
 		textFieldGenero.setColumns(10);
 		textFieldGenero.setBorder(new LineBorder(new Color(171, 173, 179)));
 		textFieldGenero.setBounds(223, 183, 189, 20);
 		contentPane.add(textFieldGenero);
-
+		
 		JLabel lblGnero = new JLabel("Gênero");
 		lblGnero.setBounds(224, 169, 45, 14);
 		contentPane.add(lblGnero);
-
+		
 		textFieldSubtitulo = new JTextField();
 		textFieldSubtitulo.setColumns(10);
 		textFieldSubtitulo.setBorder(new LineBorder(new Color(171, 173, 179)));
 		textFieldSubtitulo.setBounds(20, 67, 390, 20);
 		contentPane.add(textFieldSubtitulo);
-
+		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Editora");
 		lblNewLabel_1_1_1.setBounds(22, 169, 62, 14);
 		contentPane.add(lblNewLabel_1_1_1);
-
-		btnNewButton = new JButton(livroSelecionado == null ? "Adicionar" : "Alterar");
+		
+		btnNewButton = new JButton(livroSelecionado == null ?"Adicionar":"Alterar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				Livro livro = new Livro(textFieldISBN.getText(), textFieldEditora.getText(), textFieldAutor.getText(),
-						textFieldTitulo.getText(), textFieldSubtitulo.getText(), textFieldGenero.getText(), 1);
-
-				if (livroSelecionado == null) {
+				
+				Livro livro = new Livro(textFieldISBN.getText(), textFieldEditora.getText(),textFieldAutor.getText(),textFieldTitulo.getText(),textFieldSubtitulo.getText(),textFieldGenero.getText(), 1);
+				
+				if(livroSelecionado == null) {
 					dao.salvarLivro(livro);
-
-				} else {
+					
+				}else {
 					dao.atualizarLivro(livro);
 				}
-
-				fecharECarregarJLivros();
+				
+				abrirTelaLivros(jLivro);
 			}
 		});
-
+		
 		btnNewButton.setBounds(314, 224, 89, 23);
 		contentPane.add(btnNewButton);
-
+		
 		btnNewButton_1 = new JButton("Excluir");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dao.excluirLivro(livroSelecionado.getIsbn());
-				fecharECarregarJLivros();
+				abrirTelaLivros(jLivro);
 			}
 		});
 		btnNewButton_1.setBackground(Color.RED);
@@ -135,9 +154,11 @@ public class JCadastroLivro extends JFrame {
 		btnNewButton_1.setBounds(32, 224, 89, 23);
 		btnNewButton_1.setVisible(false);
 		contentPane.add(btnNewButton_1);
-
-		if (livroSelecionado != null) {
+		
+		if(livroSelecionado != null) {
+			
 			btnNewButton_1.setVisible(true);
+			
 			textFieldAutor.setText(livroSelecionado.getAutor());
 			textFieldGenero.setText(livroSelecionado.getGenero());
 			textFieldTitulo.setText(livroSelecionado.getTitulo());
@@ -145,10 +166,15 @@ public class JCadastroLivro extends JFrame {
 			textFieldEditora.setText(livroSelecionado.getEditora());
 			textFieldISBN.setText(livroSelecionado.getIsbn());
 		}
+		
+		
 	}
-
-	private void fecharECarregarJLivros() {
+	
+	private void abrirTelaLivros(JLivros jLivro) {
+		jLivro.dispose();
 		dispose();
-
+		jLivro = new JLivros();
+		jLivro.setLocationRelativeTo(jLivro);
+		jLivro.setVisible(true);
 	}
 }
