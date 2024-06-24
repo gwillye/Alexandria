@@ -88,6 +88,28 @@ public class EmprestimoDAO {
 		}
 	}
 
+	public int buscaProximoID() {
+		String sql = "SELECT MAX(id) AS max_id FROM Emprestimo";
+
+		try (Connection conn = DriverManager.getConnection(url);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				int maxId = rs.getInt("max_id");
+				return maxId + 1;
+			} else {
+
+				return 1;
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Erro ao buscar próximo ID de empréstimo: " + e.getMessage());
+			return -1;
+		}
+	}
+
 	public void salvaItemDeEmprestimo(ItemDeEmprestimo idm) {
 		// Implementar método para salvar item de empréstimo
 	}

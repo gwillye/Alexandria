@@ -24,11 +24,17 @@ public class Emprestimo {
 		this.status = status;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
-		listaExemplares = new ArrayList<>();
+		listaExemplares = new ArrayList<>(); // listaItens
 	}
 
 	public Emprestimo() {
 		this.status = "INICIADO";
+	}
+
+	public Emprestimo(int idEmprestimo, Date dataEmprestimo, Cliente cliente) {
+		this.idEmprestimo = idEmprestimo;
+		this.dataEmprestimo = dataEmprestimo;
+		this.cliente = cliente;
 	}
 
 	public void emprestimo(Cliente cliente, boolean apto) {
