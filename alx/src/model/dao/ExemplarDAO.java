@@ -29,7 +29,6 @@ public class ExemplarDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                int id = rs.getInt("id_exemplar");
                 String isbn = rs.getString("ISBN");
                 int edicao = rs.getInt("edicao");
                 String setor = rs.getString("setor");
@@ -63,12 +62,12 @@ public class ExemplarDAO {
             if (rs.next()) {
                 int idExemplar = rs.getInt("id_exemplar");
                 int edicao = rs.getInt("edicao");
-                int setor = rs.getInt("setor");
+                String setor = rs.getString("setor");
+                int status = rs.getInt("status");
 
-                // Assume that livroDAO.consultaLivro(String isbn) returns a Livro object
                 Livro livro = livroDAO.consultaLivro(isbn);
 
-                exemplar = new Exemplar(idExemplar, livro, edicao, setor);
+                exemplar = new Exemplar(idExemplar, livro, edicao, setor,status);
             } else {
                 System.out.println("Nenhum exemplar encontrado com o ISBN: " + isbn + " e status 1");
             }

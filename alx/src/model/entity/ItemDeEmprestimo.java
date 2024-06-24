@@ -1,7 +1,6 @@
 package model.entity;
 
 import java.util.Date;
-import java.util.List;
 
 public class ItemDeEmprestimo {
 
@@ -10,10 +9,10 @@ public class ItemDeEmprestimo {
 	private Date dataPrevistaDevolucao;
 	private Emprestimo emprestimo;
 	private Exemplar exemplar;
-	private List<ItemDeEmprestimo> listaItemsDeEmprestimos;
+	private int status;
 
 	public ItemDeEmprestimo(Emprestimo emprestimo, Exemplar exemplar, Date dataDevolucao,
-			Date dataPrevistaDevolucao, Date dataEmprestimoItem) {
+			Date dataPrevistaDevolucao, Date dataEmprestimoItem, int status) {
 
 		this.emprestimo = emprestimo;
 		this.exemplar = exemplar;
@@ -23,9 +22,7 @@ public class ItemDeEmprestimo {
 	}
 
 	public void itemDeEmprestimo(Emprestimo emp, Exemplar exp) {
-		ItemDeEmprestimo item = new ItemDeEmprestimo(emp, exp, dataDevolucao, dataPrevistaDevolucao,
-				dataEmprestimoItem);
-		listaItemsDeEmprestimos.add(item);
+		
 
 	}
 
@@ -72,4 +69,22 @@ public class ItemDeEmprestimo {
 	public void setExemplar(Exemplar exemplar) {
 		this.exemplar = exemplar;
 	}
+
+	public int getStatus(){
+		return status;
+	}
+
+	public void setStatus(int status){
+		this.status = status;
+	}
+
+	public String toString() {
+		return "ItemDeEmprestimo{" +
+						"dataEmprestimoItem=" + dataEmprestimoItem +
+						", dataDevolucao=" + dataDevolucao +
+						", dataPrevistaDevolucao=" + dataPrevistaDevolucao +
+						", emprestimo=" + emprestimo +
+						", exemplar=" + exemplar +
+						'}';
+}
 }

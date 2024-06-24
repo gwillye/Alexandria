@@ -3,9 +3,7 @@ package model.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import model.entity.Emprestimo;
 import model.entity.Exemplar;
@@ -15,37 +13,13 @@ public class ItemDeEmprestimoDAO {
 
     private static final String url = "jdbc:sqlite:library.db";
 
-    // Método para buscar um item de empréstimo por ID
     public ItemDeEmprestimo buscaItemDeEmprestimo(int idItemEmprestimo) throws SQLException {
-        String sql = "SELECT * FROM ItemEmprestimo WHERE ID_exemplar = ?";
-        ItemDeEmprestimo item = null;
 
-        try (Connection conn = DriverManager.getConnection(url);
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setInt(1, idItemEmprestimo);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                int idExemplar = rs.getInt("id_exemplar");
-                int idEmprestimo = rs.getInt("id_emprestimo");
-                Date dataEmprestimoItem = rs.getDate("data_emprestimo");
-                Date dataDevolucao = rs.getDate("data_devolucao");
-                Date dataPrevistaDevolucao = rs.getDate("data_prevista_devolucao");
-
-                Emprestimo emprestimo = buscarEmprestimoPorId(idEmprestimo);
-                Exemplar exemplar = buscarExemplarPorId(idExemplar);
-
-                item = new ItemDeEmprestimo(idItemEmprestimo, emprestimo, exemplar,
-                        dataDevolucao, dataPrevistaDevolucao, dataEmprestimoItem);
-            }
-        }
-
-        return item;
+        return null;
     }
 
     public void salvarItemDeEmprestimo(ItemDeEmprestimo item) throws SQLException {
-        String sql = "INSERT INTO ItemDeEmprestimo (ID_exemplar, ID_emprestimo, data_emprestimo, data_devolucao, data_prevista_devolucao) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ItemEmprestimo (ID_exemplar, ID_emprestimo, data_emprestimo, data_prevista_devolucao, status) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -53,8 +27,8 @@ public class ItemDeEmprestimoDAO {
             pstmt.setInt(1, item.getExemplar().getIdExemplar());
             pstmt.setInt(2, item.getEmprestimo().getIdEmprestimo());
             pstmt.setDate(3, new java.sql.Date(item.getDataEmprestimoItem().getTime()));
-            pstmt.setDate(4, new java.sql.Date(item.getDataDevolucao().getTime()));
-            pstmt.setDate(5, new java.sql.Date(item.getDataPrevistaDevolucao().getTime()));
+            pstmt.setDate(4, new java.sql.Date(item.getDataPrevistaDevolucao().getTime()));
+            pstmt.setInt(5, item.getStatus());
 
             pstmt.executeUpdate();
             System.out.println("Item de empréstimo cadastrado com sucesso");

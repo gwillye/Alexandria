@@ -81,9 +81,9 @@ public class Emprestimo {
 
 		Date dataLimite = calendar.getTime();
 
-		ItemDeEmprestimo item = new ItemDeEmprestimo(emprestimo, exemplar, null, dataLimite, hoje);
+		ItemDeEmprestimo item = new ItemDeEmprestimo(emprestimo, exemplar, null, dataLimite, hoje, 0);
 
-		listaItens.add(item);
+		//listaItens.add(item);
 
 		return item;
 	}

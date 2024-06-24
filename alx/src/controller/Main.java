@@ -1,15 +1,20 @@
 package controller;
 
+import java.sql.SQLException;
+
 import model.dao.EmprestimoDAO;
 import model.entity.Cliente;
+import model.entity.ItemDeEmprestimo;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         Controladora cont = new Controladora();
-        String cpf = "12345678901";
-        Cliente cliente = cont.iniciarEmprestimo(cpf);
+        
+        int idExemplar = 5;
+        int idEmprestimo = 11;
+        
+        ItemDeEmprestimo item = cont.adicionarItem(idExemplar, idEmprestimo);
 
-        System.out.println("Próximo ID disponível: " + cliente.getNome());
-
+        item.toString();
     }
 }
