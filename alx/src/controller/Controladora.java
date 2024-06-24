@@ -25,28 +25,15 @@ public class Controladora {
 		this.clienteDAO = new ClienteDAO();
 	}
 
-	public void adicionarItem(int idExemplar, int idEmprestimo) throws SQLException {
-		Exemplar exp = exemplarDAO.buscarExemplar(idExemplar);
+	public ItemDeEmprestimo adicionarItem(int ISBN, int idEmprestimo) throws SQLException {
+
+		Exemplar exp = exemplarDAO.buscarExemplar(ISBN);
 		Emprestimo emp = emprestimoDAO.buscaEmprestimo(idEmprestimo);
-		ItemDeEmprestimo item = itemDeEmprestimoDAO.buscaItemDeEmprestimo(idEmprestimo);
-		// exp.vinculaEmprestimo(); // campo nulo por enquanto...
 
-		/// adicionarItem
+		ItemDeEmprestimo item = emp.adicionarItem(exp);
+
 		itemDeEmprestimoDAO.salvarItemDeEmprestimo(item);
-
-	}
-
-	public void registrarEmprestimo(int idEmprestimo, Cliente cliente) {
-
-		Emprestimo emprestimo = emprestimoDAO.buscaEmprestimo(idEmprestimo);
-
-		if (emprestimo != null && emprestimo.getStatus().equals("INICIADO")) {
-			emprestimo.registrarEmprestimo(cliente);
-			emprestimoDAO.salvaEmprestimo(emprestimo);
-		} else {
-			System.out
-					.println("Não é possível registrar o empréstimo. O empréstimo não foi iniciado ou não encontrado.");
-		}
+		return item;
 	}
 
 	public void devolverEmprestimo(int idEmprestimo) {
@@ -54,7 +41,7 @@ public class Controladora {
 	}
 
 	public Cliente iniciarEmprestimo(String cpf) {
-		
+
 		Cliente cli = clienteDAO.buscaCliente(cpf);
 		System.out.println("BUSCA CLIENTE " + cli.getNome());
 		boolean apto = cli.podeEmprestar();
@@ -63,11 +50,11 @@ public class Controladora {
 		if (apto) {
 			Date dataHoraAtual = new Date();
 			int idEmprestimo = emprestimoDAO.buscaProximoID();
-			System.out.println("proximo id? " + idEmprestimo	);
+			System.out.println("proximo id? " + idEmprestimo);
 			Emprestimo novoEmprestimo = new Emprestimo(idEmprestimo, dataHoraAtual, cli);
 			novoEmprestimo.setStatus("Iniciado");
-			//novoEmprestimo.associaCliente(novoEmprestimo);
-			//lienteDAO.salvaCliente(cli);
+			// novoEmprestimo.associaCliente(novoEmprestimo);
+			// lienteDAO.salvaCliente(cli);
 			emprestimoDAO.salvaEmprestimo(novoEmprestimo);
 
 			System.out.println("Empréstimo iniciado para o cliente: " + cli.getNome());

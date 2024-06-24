@@ -2,6 +2,7 @@ package model.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public class Emprestimo {
@@ -15,7 +16,7 @@ public class Emprestimo {
 	private Cliente cliente;
 
 	private Funcionario funcionario;
-	private List<Exemplar> listaExemplares;
+	private List<ItemDeEmprestimo> listaItens;
 
 	public Emprestimo(int idEmprestimo, Date dataEmprestimo, String status,
 			Cliente cliente, Funcionario funcionario) {
@@ -24,7 +25,7 @@ public class Emprestimo {
 		this.status = status;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
-		listaExemplares = new ArrayList<>(); // listaItens
+		listaItens = new ArrayList<>(); // listaItens
 	}
 
 	public Emprestimo() {
@@ -70,9 +71,19 @@ public class Emprestimo {
 		System.out.println("Status " + this.status);
 	}
 
-	public void adicionarItem(Exemplar exp) {
-		listaExemplares.add(exp);
+	public Exemplar adicionarItem(ItemDeEmprestimo item) {
+		Date hoje = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(hoje);
+		calendar.add(Calendar.DAY_OF_MONTH, 14);
+		Date dataLimite = calendar.getTime();
 
+		ItemDeEmprestimo item = new ItemDeEmprestimo(idEmprestimo, null, null, dataEmprestimo, dataEmprestimo,
+				dataEmprestimo);
+
+		listaItens.add(item);
+
+		return exp;
 	}
 
 	public void devolverEmprestimo(Emprestimo emp) {

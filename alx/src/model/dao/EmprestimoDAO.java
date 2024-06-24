@@ -35,18 +35,13 @@ public class EmprestimoDAO {
 				String cpfCliente = rs.getString("id_cliente");
 				String cpfFuncionario = rs.getString("id_funcionario");
 
-				// Buscar cliente e funcionário pelos CPFs utilizando seus respectivos DAOs
 				Cliente cliente = clienteDAO.buscaCliente(cpfCliente);
 				Funcionario funcionario = funcionarioDAO.buscaFuncionario(cpfFuncionario);
 
-				// Criar objeto Emprestimo com os dados do banco
 				Emprestimo emprestimo = new Emprestimo();
 				emprestimo.setIdEmprestimo(idEmprestimo);
 				emprestimo.setCliente(cliente);
 				emprestimo.setFuncionario(funcionario);
-				// Não há necessidade de definir data_emprestimo, data_devolucao,
-				// data_vencimento e status aqui,
-				// pois esses dados não existem na tabela Emprestimo
 
 				return emprestimo;
 			}
@@ -66,7 +61,7 @@ public class EmprestimoDAO {
 						Statement.RETURN_GENERATED_KEYS)) {
 
 			pstmtEmprestimo.setInt(1, emp.getCliente().getCodCliente()); // Supondo que Cliente tenha um método getCpf()
-																		// para obter o CPF
+																			// para obter o CPF
 			pstmtEmprestimo.setString(2, "21"); // Supondo que Funcionario tenha um método
 												// getCpf() para obter o CPF
 

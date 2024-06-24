@@ -6,19 +6,18 @@ public class Exemplar {
 
 	private int edicao;
 
-	private int setor;
+	private String setor;
 
 	private Livro livro;
 
-	public Exemplar(int edicao, int setor, int estante, Livro livro) {
+	private int status;
 
+	public Exemplar(int idExemplar, Livro livro, int edicao, String setor, int status) {
+		this.idExemplar = idExemplar;
 		this.edicao = edicao;
 		this.setor = setor;
 		this.livro = livro;
-	}
-
-	public Exemplar(int idExemplar2, Livro livro2, int edicao2, int setor2) {
-		// TODO Auto-generated constructor stub
+		this.status = status;
 	}
 
 	public int getIdExemplar() {
@@ -45,15 +44,15 @@ public class Exemplar {
 		this.livro = livro;
 	}
 
-	public int getSetor() {
+	public String getSetor() {
 		return setor;
 	}
 
-	public void vinculaEmprestimo(Emprestimo emp) {
-
+	public int getStatus() {
+		return status;
 	}
 
-	public void setEstado(String estado) {
+	public void vinculaEmprestimo(Emprestimo emp) {
 
 	}
 
@@ -61,11 +60,7 @@ public class Exemplar {
 
 	}
 
-	public void setSetor(int setor) {
-
-	}
-
-	public void setEstante(int estante) {
+	public void setSetor(String setor) {
 
 	}
 

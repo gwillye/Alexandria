@@ -29,13 +29,15 @@ public class ExemplarDAO {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
+                int id = rs.getInt("id_exemplar");
                 String isbn = rs.getString("ISBN");
                 int edicao = rs.getInt("edicao");
-                int setor = rs.getInt("setor");
+                String setor = rs.getString("setor");
+                int status = rs.getInt("status");
 
                 Livro livro = livroDAO.consultaLivro(isbn);
 
-                exemplar = new Exemplar(idExemplar, livro, edicao, setor);
+                exemplar = new Exemplar(idExemplar, livro, edicao, setor, status);
 
             } else {
                 System.out.println("Nenhum exemplar encontrado com o ID: " + idExemplar);

@@ -9,8 +9,7 @@ public class Main {
         String cpf = "12345678901";
         Cliente cliente = cont.iniciarEmprestimo(cpf);
 
-
         System.out.println("Próximo ID disponível: " + cliente.getNome());
-        
+
     }
 }
