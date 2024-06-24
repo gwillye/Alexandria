@@ -50,4 +50,56 @@ public class ExemplarDAO {
         return exemplar;
     }
 
+    public Exemplar buscarExemplarLivroPorISBN(String isbn) {
+        String sql = "SELECT * FROM Exemplar WHERE ISBN = ? AND status = 1 LIMIT 1";
+        Exemplar exemplar = null;
+
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, isbn);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int idExemplar = rs.getInt("id_exemplar");
+                int edicao = rs.getInt("edicao");
+                int setor = rs.getInt("setor");
+
+                // Assume that livroDAO.consultaLivro(String isbn) returns a Livro object
+                Livro livro = livroDAO.consultaLivro(isbn);
+
+                exemplar = new Exemplar(idExemplar, livro, edicao, setor);
+            } else {
+                System.out.println("Nenhum exemplar encontrado com o ISBN: " + isbn + " e status 1");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar exemplar: " + e.getMessage());
+        }
+
+        return exemplar;
+    }
+
+    public void atualizarExemplar(Exemplar exemplar) {
+        String sql = "UPDATE Exemplar SET status = ? WHERE ID_exemplar = ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, exemplar.getStatus());
+            pstmt.setInt(2, exemplar.getIdExemplar());
+
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Exemplar atualizado com sucesso: " + exemplar.getIdExemplar());
+            } else {
+                System.out.println("Nenhum exemplar encontrado com o id: " + exemplar.getIdExemplar());
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao atualizar exemplar: " + e.getMessage());
+        }
+    }
+
 }

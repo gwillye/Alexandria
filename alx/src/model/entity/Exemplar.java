@@ -64,4 +64,8 @@ public class Exemplar {
 
 	}
 
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 }

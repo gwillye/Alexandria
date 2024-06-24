@@ -5,7 +5,6 @@ import java.util.List;
 
 public class ItemDeEmprestimo {
 
-	private int idItemEmp;
 	private Date dataEmprestimoItem;
 	private Date dataDevolucao;
 	private Date dataPrevistaDevolucao;
@@ -13,9 +12,9 @@ public class ItemDeEmprestimo {
 	private Exemplar exemplar;
 	private List<ItemDeEmprestimo> listaItemsDeEmprestimos;
 
-	public ItemDeEmprestimo(int idItemEmp, Emprestimo emprestimo, Exemplar exemplar, Date dataDevolucao,
+	public ItemDeEmprestimo(Emprestimo emprestimo, Exemplar exemplar, Date dataDevolucao,
 			Date dataPrevistaDevolucao, Date dataEmprestimoItem) {
-		this.idItemEmp = idItemEmp;
+
 		this.emprestimo = emprestimo;
 		this.exemplar = exemplar;
 		this.dataDevolucao = dataDevolucao;
@@ -24,7 +23,7 @@ public class ItemDeEmprestimo {
 	}
 
 	public void itemDeEmprestimo(Emprestimo emp, Exemplar exp) {
-		ItemDeEmprestimo item = new ItemDeEmprestimo(idItemEmp, emp, exp, dataDevolucao, dataPrevistaDevolucao,
+		ItemDeEmprestimo item = new ItemDeEmprestimo(emp, exp, dataDevolucao, dataPrevistaDevolucao,
 				dataEmprestimoItem);
 		listaItemsDeEmprestimos.add(item);
 
@@ -32,14 +31,6 @@ public class ItemDeEmprestimo {
 
 	public void vincularEmprestimo(Emprestimo emp) {
 		this.emprestimo = emp;
-	}
-
-	public int getIdItemEmp() {
-		return idItemEmp;
-	}
-
-	public void setIdItemEmp(int idItemEmp) {
-		this.idItemEmp = idItemEmp;
 	}
 
 	public Date getDataEmprestimoItem() {

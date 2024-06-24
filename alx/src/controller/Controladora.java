@@ -25,14 +25,19 @@ public class Controladora {
 		this.clienteDAO = new ClienteDAO();
 	}
 
-	public ItemDeEmprestimo adicionarItem(int ISBN, int idEmprestimo) throws SQLException {
+	public ItemDeEmprestimo adicionarItem(int idExemplar, int idEmprestimo) throws SQLException {
 
-		Exemplar exp = exemplarDAO.buscarExemplar(ISBN);
-		Emprestimo emp = emprestimoDAO.buscaEmprestimo(idEmprestimo);
+		Exemplar exemplar = exemplarDAO.buscarExemplar(idExemplar);
+		Emprestimo emprestimo = emprestimoDAO.buscaEmprestimo(idEmprestimo);
 
-		ItemDeEmprestimo item = emp.adicionarItem(exp);
+		ItemDeEmprestimo item = emprestimo.adicionarItem(exemplar, emprestimo);
+
+		exemplar.setStatus(0);
 
 		itemDeEmprestimoDAO.salvarItemDeEmprestimo(item);
+
+		exemplarDAO.atualizarExemplar(exemplar);
+
 		return item;
 	}
 

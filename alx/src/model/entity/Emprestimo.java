@@ -71,19 +71,21 @@ public class Emprestimo {
 		System.out.println("Status " + this.status);
 	}
 
-	public Exemplar adicionarItem(ItemDeEmprestimo item) {
+	public ItemDeEmprestimo adicionarItem(Exemplar exemplar, Emprestimo emprestimo) {
+
 		Date hoje = new Date();
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(hoje);
 		calendar.add(Calendar.DAY_OF_MONTH, 14);
+
 		Date dataLimite = calendar.getTime();
 
-		ItemDeEmprestimo item = new ItemDeEmprestimo(idEmprestimo, null, null, dataEmprestimo, dataEmprestimo,
-				dataEmprestimo);
+		ItemDeEmprestimo item = new ItemDeEmprestimo(emprestimo, exemplar, null, dataLimite, hoje);
 
 		listaItens.add(item);
 
-		return exp;
+		return item;
 	}
 
 	public void devolverEmprestimo(Emprestimo emp) {
