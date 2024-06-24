@@ -115,7 +115,7 @@ public class EmprestimoDAO {
 	}
 
 	public ItemDeEmprestimo buscaItemDeEmprestimo(int idItemEmp) {
-		// Implementar método para buscar item de empréstimo
+
 		return null;
 	}
 }
