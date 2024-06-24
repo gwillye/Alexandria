@@ -67,8 +67,8 @@ public class EmprestimoDAO {
 
 			pstmtEmprestimo.setString(1, emp.getCliente().getCpf()); // Supondo que Cliente tenha um método getCpf()
 																		// para obter o CPF
-			pstmtEmprestimo.setString(2, emp.getFuncionario().getCpf()); // Supondo que Funcionario tenha um método
-																			// getCpf() para obter o CPF
+			pstmtEmprestimo.setString(2, "21"); // Supondo que Funcionario tenha um método
+												// getCpf() para obter o CPF
 
 			int rowsAffected = pstmtEmprestimo.executeUpdate();
 
