@@ -1,20 +1,16 @@
 package controller;
 
 import model.dao.EmprestimoDAO;
+import model.entity.Cliente;
 
 public class Main {
     public static void main(String[] args) {
-        // Cria uma instância do EmprestimoDAO
-        EmprestimoDAO emprestimoDAO = new EmprestimoDAO();
+        Controladora cont = new Controladora();
+        String cpf = "12345678901";
+        Cliente cliente = cont.iniciarEmprestimo(cpf);
 
-        // Chama o método buscaProximoCod e imprime o resultado
-        int proximoId = emprestimoDAO.buscaProximoID();
 
-        // Verifica se houve algum erro ao buscar o próximo ID
-        if (proximoId != -1) {
-            System.out.println("Próximo ID disponível: " + proximoId);
-        } else {
-            System.out.println("Erro ao buscar o próximo ID.");
-        }
+        System.out.println("Próximo ID disponível: " + cliente.getNome());
+        
     }
 }

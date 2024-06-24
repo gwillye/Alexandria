@@ -65,7 +65,7 @@ public class EmprestimoDAO {
 				PreparedStatement pstmtEmprestimo = conn.prepareStatement(sqlEmprestimo,
 						Statement.RETURN_GENERATED_KEYS)) {
 
-			pstmtEmprestimo.setString(1, emp.getCliente().getCpf()); // Supondo que Cliente tenha um método getCpf()
+			pstmtEmprestimo.setInt(1, emp.getCliente().getCodCliente()); // Supondo que Cliente tenha um método getCpf()
 																		// para obter o CPF
 			pstmtEmprestimo.setString(2, "21"); // Supondo que Funcionario tenha um método
 												// getCpf() para obter o CPF

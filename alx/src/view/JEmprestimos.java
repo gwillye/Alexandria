@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import controller.Controladora;
 import model.entity.Emprestimo;
 
 import javax.swing.JTextField;
@@ -31,6 +32,7 @@ public class JEmprestimos extends JFrame {
 	private JTextField textFieldLivro3;
 	private JTextField textFieldLivro2;
 	private JTextField textFieldData;
+	private Controladora controladora;
 
 	/**
 	 * Launch the application.
@@ -133,22 +135,20 @@ public class JEmprestimos extends JFrame {
         btnLivro3.setBounds(479, 224, 41, 23);
         contentPane.add(btnLivro3);
 
-				int cod = 666;
-        Date dataHoraAtual = new Date();
-        Emprestimo emp =  new Emprestimo(cod, dataHoraAtual);
-        textFieldData.setText(emp.retornaData());
+        //textFieldData.setText(emp.retornaData());
         
         JButton btnCliente = new JButton("+");
         btnCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) {
 				
-				String cpf = textFieldCliente.getText();
-				JOptionPane.showMessageDialog(null, cpf, "cpf do cliente", JOptionPane.INFORMATION_MESSAGE);
+					String cpf = textFieldCliente.getText();
+					//Cliente cliente = controladora.iniciarEmprestimo(cpf);
+					//JOptionPane.showMessageDialog(null, cpf, "cpf do cliente", JOptionPane.INFORMATION_MESSAGE);
 				
 				
 				
-			}
-		});
+					}
+				});
         btnCliente.setBounds(479, 106, 41, 23);
         contentPane.add(btnCliente);
         

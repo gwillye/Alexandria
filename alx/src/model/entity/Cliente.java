@@ -8,10 +8,13 @@ public class Cliente extends Pessoa {
 
 	private Date dataCadastro;
 
+	private int codCliente;
+
 	private List<Emprestimo> emprestimos = new ArrayList<>();
 
-	public Cliente(String cpf, String nome) {
+	public Cliente(String cpf, String nome, int codCliente) {
 		super(cpf, nome);
+		this.codCliente = codCliente;
 	}
 
 	public Date getDataCadastro() {
@@ -20,6 +23,14 @@ public class Cliente extends Pessoa {
 
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
+	}
+
+	public int getCodCliente() {
+		return codCliente;
+	}
+
+	public void setCodCliente(int codCliente) {
+		this.codCliente = codCliente;
 	}
 
 	public List<Emprestimo> getEmprestimos() {

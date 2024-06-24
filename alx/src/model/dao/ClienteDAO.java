@@ -17,7 +17,7 @@ public class ClienteDAO {
 
   public Cliente buscaCliente(String cpf) {
 
-    String sqlBuscaCliente = "SELECT p.CPF, p.nome, c.dataCadastro " +
+    String sqlBuscaCliente = "SELECT p.CPF, p.nome, c.dataCadastro, p.ID " +
     "FROM Pessoa p " +
     "JOIN Cliente c ON p.ID = c.ID_cliente " +
     "WHERE p.CPF = ?";
@@ -32,8 +32,9 @@ public class ClienteDAO {
         String nome = result.getString("nome");
         String cpfString = result.getString("cpf");
         String dataString = result.getString("dataCadastro");
+        int idCliente = result.getInt("ID");
 
-        Cliente cliente = new Cliente(cpfString, nome);
+        Cliente cliente = new Cliente(cpfString, nome,idCliente);
 
         Date dataCadastro = null;
         try {

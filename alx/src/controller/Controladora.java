@@ -22,6 +22,7 @@ public class Controladora {
 		this.emprestimoDAO = new EmprestimoDAO();
 		this.exemplarDAO = new ExemplarDAO();
 		this.itemDeEmprestimoDAO = new ItemDeEmprestimoDAO();
+		this.clienteDAO = new ClienteDAO();
 	}
 
 	public void adicionarItem(int idExemplar, int idEmprestimo) throws SQLException {
@@ -53,16 +54,20 @@ public class Controladora {
 	}
 
 	public Cliente iniciarEmprestimo(String cpf) {
+		
 		Cliente cli = clienteDAO.buscaCliente(cpf);
+		System.out.println("BUSCA CLIENTE " + cli.getNome());
 		boolean apto = cli.podeEmprestar();
+		System.out.println("ESTÁ APTO? " + apto);
 
 		if (apto) {
 			Date dataHoraAtual = new Date();
 			int idEmprestimo = emprestimoDAO.buscaProximoID();
+			System.out.println("proximo id? " + idEmprestimo	);
 			Emprestimo novoEmprestimo = new Emprestimo(idEmprestimo, dataHoraAtual, cli);
 			novoEmprestimo.setStatus("Iniciado");
-			cli.associaEmprestimo(novoEmprestimo);
-			clienteDAO.salvaCliente(cli);
+			//novoEmprestimo.associaCliente(novoEmprestimo);
+			//lienteDAO.salvaCliente(cli);
 			emprestimoDAO.salvaEmprestimo(novoEmprestimo);
 
 			System.out.println("Empréstimo iniciado para o cliente: " + cli.getNome());
