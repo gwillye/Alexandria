@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -15,7 +16,9 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controladora;
+import model.entity.Cliente;
 import model.entity.Emprestimo;
+import model.entity.ItemDeEmprestimo;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -33,6 +36,7 @@ public class JEmprestimos extends JFrame {
 	private JTextField textFieldLivro2;
 	private JTextField textFieldData;
 	private Controladora controladora;
+	private JTextArea textArea;
 
 	/**
 	 * Launch the application.
@@ -47,125 +51,198 @@ public class JEmprestimos extends JFrame {
 					e.printStackTrace();
 				}
 			}
-			 	
+
 		});
-		
-		
+
 	}
-	
 
 	/**
 	 * Create the frame.
 	 */
 	public JEmprestimos() {
+
+		controladora = new Controladora();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 572, 557);
+		setBounds(100, 100, 710, 634);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		textFieldCliente = new JTextField();
-		textFieldCliente.setBounds(137, 107, 332, 20);
+		textFieldCliente.setBounds(207, 110, 332, 20);
 		contentPane.add(textFieldCliente);
 		textFieldCliente.setColumns(10);
-		
+
 		JLabel lblNewLabel = new JLabel("CPF do cliente:");
-		lblNewLabel.setBounds(29, 110, 90, 14);
+		lblNewLabel.setBounds(86, 113, 103, 14);
 		contentPane.add(lblNewLabel);
-		
+
 		textFieldLivro1 = new JTextField();
-		textFieldLivro1.setBounds(137, 166, 332, 20);
+		textFieldLivro1.setBounds(207, 169, 332, 20);
 		contentPane.add(textFieldLivro1);
 		textFieldLivro1.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("ISBN do livro 1:");
-		lblNewLabel_1.setBounds(33, 169, 86, 14);
+
+		JLabel lblNewLabel_1 = new JLabel("ID do Exemplar 1:");
+		lblNewLabel_1.setBounds(86, 172, 103, 14);
 		contentPane.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_1_1 = new JLabel("ISBN do livro 2:");
-		lblNewLabel_1_1.setBounds(33, 197, 86, 14);
+
+		JLabel lblNewLabel_1_1 = new JLabel("ID do Exemplar 2:");
+		lblNewLabel_1_1.setBounds(86, 200, 103, 14);
 		contentPane.add(lblNewLabel_1_1);
-		
+
 		textFieldLivro3 = new JTextField();
 		textFieldLivro3.setColumns(10);
-		textFieldLivro3.setBounds(137, 225, 332, 20);
+		textFieldLivro3.setBounds(207, 228, 332, 20);
 		contentPane.add(textFieldLivro3);
-		
-		JLabel lblNewLabel_1_2 = new JLabel("ISBN do livro 3:");
-		lblNewLabel_1_2.setBounds(33, 228, 86, 14);
+
+		JLabel lblNewLabel_1_2 = new JLabel("ID do Exemplar 3:");
+		lblNewLabel_1_2.setBounds(86, 231, 103, 14);
 		contentPane.add(lblNewLabel_1_2);
-		
+
 		textFieldLivro2 = new JTextField();
 		textFieldLivro2.setColumns(10);
-		textFieldLivro2.setBounds(137, 194, 332, 20);
+		textFieldLivro2.setBounds(207, 197, 332, 20);
 		contentPane.add(textFieldLivro2);
-		
-		
-		JLabel lblNewLabel_2 = new JLabel("Resultado:");
-		lblNewLabel_2.setBounds(33, 321, 130, 14);
-		contentPane.add(lblNewLabel_2);
-		
-		JButton btnSave = new JButton("Salvar");
-		btnSave.setBounds(33, 268, 89, 23);
-		contentPane.add(btnSave);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(33, 346, 487, 149);
-		
-		textArea.setEditable(false);
-       
-       
-        contentPane.add(textArea);
-        
-        JLabel lblNewLabel_3 = new JLabel("Cadastro de Empréstimo");
-        lblNewLabel_3.setBounds(202, 24, 168, 14);
-        contentPane.add(lblNewLabel_3);
-        
-        JButton btnLivro1 = new JButton("+");
-        btnLivro1.setBounds(479, 165, 41, 23);
-        contentPane.add(btnLivro1);
-        
-        JButton btnLivro2 = new JButton("+");
-        btnLivro2.setBounds(479, 193, 41, 23);
-        contentPane.add(btnLivro2);
-        
-        JButton btnLivro3 = new JButton("+");
-        btnLivro3.setBounds(479, 224, 41, 23);
-        contentPane.add(btnLivro3);
 
-        //textFieldData.setText(emp.retornaData());
-        
-        JButton btnCliente = new JButton("+");
-        btnCliente.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				
-					String cpf = textFieldCliente.getText();
-					//Cliente cliente = controladora.iniciarEmprestimo(cpf);
-					//JOptionPane.showMessageDialog(null, cpf, "cpf do cliente", JOptionPane.INFORMATION_MESSAGE);
-				
-				
-				
-					}
-				});
-        btnCliente.setBounds(479, 106, 41, 23);
-        contentPane.add(btnCliente);
-        
-        textFieldData = new JTextField();
-        textFieldData.setColumns(10);
-        textFieldData.setBounds(137, 76, 198, 20);
-        contentPane.add(textFieldData);
-        
-        JLabel lblData = new JLabel("Data:");
-        lblData.setBounds(29, 79, 90, 14);
-        contentPane.add(lblData);
-        
-       
-        
-      
-        
+		JLabel lblNewLabel_2 = new JLabel("Resultado:");
+		lblNewLabel_2.setBounds(33, 324, 130, 14);
+		contentPane.add(lblNewLabel_2);
+
+		JLabel lblNewLabel_3 = new JLabel("Cadastro de Empréstimo");
+		lblNewLabel_3.setBounds(272, 27, 168, 14);
+		contentPane.add(lblNewLabel_3);
+
+		JButton btnCliente = new JButton("+");
+		btnCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String cpf = textFieldCliente.getText();
+				Cliente cli = iniciaEmprestimo(cpf);
+
+				if (cli != null) {
+					String texto = "Empréstimo criado para o cliente " + cli.getNome();
+					JOptionPane.showMessageDialog(null, texto, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+					String cpfNome = cli.getCpf() + " (" + cli.getNome() + ")";
+					textFieldCliente.setText(cpfNome);
+					btnCliente.setEnabled(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Cliente não encontrado! Tente outro CPF.", "ERRO",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnCliente.setBounds(549, 109, 41, 23);
+		contentPane.add(btnCliente);
+
+		JButton btnLivro1 = new JButton("+");
+		btnLivro1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int idExemplar = Integer.parseInt(textFieldLivro1.getText());
+					ItemDeEmprestimo item = adicionarItem(idExemplar);
+
+					textFieldLivro1.setText("Exemplar do livro: " + item.getExemplar().getLivro().getTitulo());
+					btnLivro1.setEnabled(false);
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Por favor, insira um número válido para o ID do exemplar.",
+							"ERRO", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnLivro1.setBounds(549, 168, 41, 23);
+		contentPane.add(btnLivro1);
+
+		JButton btnLivro2 = new JButton("+");
+		btnLivro2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int idExemplar = Integer.parseInt(textFieldLivro2.getText());
+					ItemDeEmprestimo item = adicionarItem(idExemplar);
+
+					textFieldLivro2.setText("Exemplar do livro: " + item.getExemplar().getLivro().getTitulo());
+					btnLivro2.setEnabled(false);
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Por favor, insira um número válido para o ID do exemplar.",
+							"ERRO", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnLivro2.setBounds(549, 196, 41, 23);
+		contentPane.add(btnLivro2);
+
+		JButton btnLivro3 = new JButton("+");
+		btnLivro3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int idExemplar = Integer.parseInt(textFieldLivro3.getText());
+					ItemDeEmprestimo item = adicionarItem(idExemplar);
+
+					textFieldLivro3.setText("Exemplar do livro: " + item.getExemplar().getLivro().getTitulo());
+					btnLivro3.setEnabled(false);
+				} catch (NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, "Por favor, insira um número válido para o ID do exemplar.",
+							"ERRO", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		btnLivro3.setBounds(549, 227, 41, 23);
+		contentPane.add(btnLivro3);
+
+		JButton btnSave = new JButton("Salvar");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					imprimirResultado();
+				} catch (SQLException e1) {
+
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnSave.setBounds(103, 271, 89, 23);
+		contentPane.add(btnSave);
+
+		textFieldData = new JTextField();
+		textFieldData.setColumns(10);
+		textFieldData.setBounds(207, 79, 198, 20);
+		contentPane.add(textFieldData);
+
+		JLabel lblData = new JLabel("Data:");
+		lblData.setBounds(86, 82, 103, 14);
+		contentPane.add(lblData);
+
+		textArea = new JTextArea();
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		textArea.setEditable(false);
+
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(33, 349, 619, 207);
+		contentPane.add(scrollPane);
+
 	}
-	
-	
+
+	private void imprimirResultado() throws SQLException {
+		textArea.setText(controladora.imprimirResultado());
+	}
+
+	private Cliente iniciaEmprestimo(String cpf) {
+		return controladora.iniciarEmprestimo(cpf);
+	}
+
+	private ItemDeEmprestimo adicionarItem(int idExemplar) {
+		try {
+			int idEmprestimo = controladora.buscaIdEmprestimo();
+			return controladora.adicionarItem(idExemplar, idEmprestimo);
+		} catch (Exception e) { // Captura todas as exceções
+			JOptionPane.showMessageDialog(null, "Exemplar não cadastrado tente outro ID ", "Erro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
+	}
+
 }

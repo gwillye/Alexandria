@@ -17,6 +17,10 @@ public class Cliente extends Pessoa {
 		this.codCliente = codCliente;
 	}
 
+	public Cliente() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
