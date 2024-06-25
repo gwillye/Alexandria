@@ -50,10 +50,6 @@ public class Controladora {
         return item;
     }
 
-    public void devolverEmprestimo(int idEmprestimo) {
-
-    }
-
     public int buscaIdEmprestimo() {
         return emprestimoDAO.buscaProximoID() - 1;
     }
@@ -113,6 +109,7 @@ public class Controladora {
                                 exemplar != null ? exemplar.getLivro().getTitulo() : "N/A"));
                 sb.append(
                         String.format("\n Id: %s   ", exemplar != null ? exemplar.getIdExemplar() : "N/A"));
+                sb.append(String.format("Status do Exemplar: %s   ", exemplar.getStatus()));
                 sb.append(String.format("Status: %s   ", item.getStatus()));
                 sb.append(String.format("Data Prevista de Devolução: %s   ", item.getDataPrevistaDevolucao()));
                 sb.append("\n");

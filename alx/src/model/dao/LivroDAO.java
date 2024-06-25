@@ -10,10 +10,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import model.entity.Exemplar;
 import model.entity.Livro;
-
-//import model.Exemplar;
 
 public class LivroDAO {
 

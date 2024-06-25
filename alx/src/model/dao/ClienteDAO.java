@@ -18,9 +18,9 @@ public class ClienteDAO {
   public Cliente buscaCliente(String cpf) {
 
     String sqlBuscaCliente = "SELECT p.CPF, p.nome, c.dataCadastro, p.ID " +
-    "FROM Pessoa p " +
-    "JOIN Cliente c ON p.ID = c.ID_cliente " +
-    "WHERE p.CPF = ?";
+        "FROM Pessoa p " +
+        "JOIN Cliente c ON p.ID = c.ID_cliente " +
+        "WHERE p.CPF = ?";
 
     try (Connection conn = DriverManager.getConnection(url);
         PreparedStatement pstmtBuscaPessoa = conn.prepareStatement(sqlBuscaCliente)) {
@@ -34,30 +34,30 @@ public class ClienteDAO {
         String dataString = result.getString("dataCadastro");
         int idCliente = result.getInt("ID");
 
-        Cliente cliente = new Cliente(cpfString, nome,idCliente);
+        Cliente cliente = new Cliente(cpfString, nome, idCliente);
 
         Date dataCadastro = null;
         try {
-            dataCadastro = dateFormat.parse(dataString);
+          dataCadastro = dateFormat.parse(dataString);
         } catch (ParseException e) {
-            System.err.println("Erro ao converter data: " + e.getMessage());
+          System.err.println("Erro ao converter data: " + e.getMessage());
         }
         cliente.setDataCadastro(dataCadastro);
         return cliente;
       }
-      
+
     } catch (SQLException e) {
       System.err.println("Erro ao buscar cliente: " + e.getMessage());
     }
     return null;
   }
 
-  public Cliente buscaClienteporID(int id) {
+  public Cliente buscaClientePorID(int id) {
 
     String sqlBuscaCliente = "SELECT p.CPF, p.nome, c.dataCadastro, p.ID " +
-    "FROM Pessoa p " +
-    "JOIN Cliente c ON p.ID = c.ID_cliente " +
-    "WHERE c.ID_cliente = ?";
+        "FROM Pessoa p " +
+        "JOIN Cliente c ON p.ID = c.ID_cliente " +
+        "WHERE c.ID_cliente = ?";
 
     try (Connection conn = DriverManager.getConnection(url);
         PreparedStatement pstmtBuscaPessoa = conn.prepareStatement(sqlBuscaCliente)) {
@@ -71,18 +71,18 @@ public class ClienteDAO {
         String dataString = result.getString("dataCadastro");
         int idCliente = result.getInt("ID");
 
-        Cliente cliente = new Cliente(cpfString, nome,idCliente);
+        Cliente cliente = new Cliente(cpfString, nome, idCliente);
 
         Date dataCadastro = null;
         try {
-            dataCadastro = dateFormat.parse(dataString);
+          dataCadastro = dateFormat.parse(dataString);
         } catch (ParseException e) {
-            System.err.println("Erro ao converter data: " + e.getMessage());
+          System.err.println("Erro ao converter data: " + e.getMessage());
         }
         cliente.setDataCadastro(dataCadastro);
         return cliente;
       }
-      
+
     } catch (SQLException e) {
       System.err.println("Erro ao buscar cliente: " + e.getMessage());
     }

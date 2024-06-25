@@ -14,7 +14,7 @@ public class ExemplarDAO {
     private LivroDAO livroDAO;
 
     public ExemplarDAO() {
-        this.livroDAO = new LivroDAO(); // Inicialização de LivroDAO
+        this.livroDAO = new LivroDAO();
     }
 
     public Exemplar buscarExemplar(int idExemplar) {
@@ -67,7 +67,7 @@ public class ExemplarDAO {
 
                 Livro livro = livroDAO.consultaLivro(isbn);
 
-                exemplar = new Exemplar(idExemplar, livro, edicao, setor,status);
+                exemplar = new Exemplar(idExemplar, livro, edicao, setor, status);
             } else {
                 System.out.println("Nenhum exemplar encontrado com o ISBN: " + isbn + " e status 1");
             }

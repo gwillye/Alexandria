@@ -69,4 +69,30 @@ public class FuncionarioDAO {
         }
         return null;
     }
+
+    public Funcionario buscaFuncionarioPorID(int id) {
+        String sqlBuscaFuncionario = "SELECT p.CPF, p.nome, p.ID, f.e_admin " +
+                "FROM Pessoa p " +
+                "JOIN Funcionario f ON p.ID = f.ID_funcionario " +
+                "WHERE f.ID_funcionario = ?";
+
+        try (Connection conn = DriverManager.getConnection(url);
+                PreparedStatement pstmtBuscaFuncionario = conn.prepareStatement(sqlBuscaFuncionario)) {
+
+            pstmtBuscaFuncionario.setInt(1, id);
+            ResultSet rs = pstmtBuscaFuncionario.executeQuery();
+
+            if (rs.next()) {
+                String nome = rs.getString("nome");
+                String cpfString = rs.getString("cpf");
+                boolean ehAdmin = rs.getBoolean("e_admin");
+                Funcionario funcionario = new Funcionario(cpfString, nome, ehAdmin);
+                return funcionario;
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar funcionário: " + e.getMessage());
+        }
+        return null;
+    }
 }

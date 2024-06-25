@@ -11,29 +11,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
+
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 import model.dao.LivroDAO;
 import model.entity.Livro;
-import view.ModeloTabelaLivro;
 
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
 
 public class JLivros extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
-	private JLivros jLivro;
+
 	private ArrayList<Livro> livros;
-	private ArrayList<Livro> livros1;
+
 	private JLivros jLivros;
 
 	/**
@@ -116,7 +111,7 @@ public class JLivros extends JFrame {
 						jCadastroLivro.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 						jCadastroLivro.setVisible(true);
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
+
 						e1.printStackTrace();
 					}
 				}

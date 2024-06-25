@@ -25,7 +25,7 @@ public class Emprestimo {
 		this.status = status;
 		this.cliente = cliente;
 		this.funcionario = funcionario;
-		listaItens = new ArrayList<>(); // listaItens
+		listaItens = new ArrayList<>();
 	}
 
 	public Emprestimo() {
@@ -63,11 +63,10 @@ public class Emprestimo {
 			return;
 		}
 
-		// this.dataVencimento = calcularDataVencimento(this.dataEmprestimo);
 		this.status = "ATIVO";
 		System.out.println("Empréstimo registrado para o cliente: " + cliente.getNome());
 		System.out.println("Data de Empréstimo: " + this.dataEmprestimo);
-		// System.out.println("Data de Vencimento: " + this.dataVencimento);
+
 		System.out.println("Status " + this.status);
 	}
 
@@ -83,15 +82,11 @@ public class Emprestimo {
 
 		ItemDeEmprestimo item = new ItemDeEmprestimo(emprestimo, exemplar, null, dataLimite, hoje, 0);
 
-		// listaItens.add(item);
-
 		return item;
 	}
 
 	public void devolverEmprestimo(Emprestimo emp) {
 	}
-
-	// Getters e Setters
 
 	public int getIdEmprestimo() {
 		return idEmprestimo;

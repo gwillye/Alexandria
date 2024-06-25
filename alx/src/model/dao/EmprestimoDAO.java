@@ -33,10 +33,10 @@ public class EmprestimoDAO {
 
 			if (rs.next()) {
 				int idCliente = rs.getInt("id_cliente");
-				String cpfFuncionario = rs.getString("id_funcionario");
+				int idFuncionario = rs.getInt("id_funcionario");
 
-				Cliente cliente = clienteDAO.buscaClienteporID(idCliente);
-				Funcionario funcionario = funcionarioDAO.buscaFuncionario(cpfFuncionario);
+				Cliente cliente = clienteDAO.buscaClientePorID(idCliente);
+				Funcionario funcionario = funcionarioDAO.buscaFuncionarioPorID(idFuncionario);
 
 				Emprestimo emprestimo = new Emprestimo();
 				emprestimo.setIdEmprestimo(idEmprestimo);
@@ -60,10 +60,9 @@ public class EmprestimoDAO {
 				PreparedStatement pstmtEmprestimo = conn.prepareStatement(sqlEmprestimo,
 						Statement.RETURN_GENERATED_KEYS)) {
 
-			pstmtEmprestimo.setInt(1, emp.getCliente().getCodCliente()); // Supondo que Cliente tenha um método getCpf()
-																			// para obter o CPF
-			pstmtEmprestimo.setString(2, "21"); // Supondo que Funcionario tenha um método
-												// getCpf() para obter o CPF
+			pstmtEmprestimo.setInt(1, emp.getCliente().getCodCliente());
+
+			pstmtEmprestimo.setString(2, "21");
 
 			int rowsAffected = pstmtEmprestimo.executeUpdate();
 
@@ -81,41 +80,6 @@ public class EmprestimoDAO {
 		} catch (SQLException e) {
 			System.err.println("Erro ao salvar empréstimo: " + e.getMessage());
 		}
-	}
-
-	public Emprestimo buscaEmprestimoCliente(int idEmprestimo) {
-		String sql = "SELECT e.ID AS emprestimo_id, " +
-				"       c.ID_cliente AS cliente_id, " +
-				"       p.ID AS pessoa_id, " +
-				"       p.Nome AS cliente_nome, " +
-				"       e.ID_funcionario " +
-				"FROM Emprestimo e " +
-				"INNER JOIN Cliente c ON e.ID_cliente = c.ID_cliente " +
-				"INNER JOIN Pessoa p ON c.ID = p.ID " +
-				"WHERE e.ID = ?";
-
-		try (Connection conn = DriverManager.getConnection(url);
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-			pstmt.setInt(1, idEmprestimo);
-			ResultSet rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				Cliente cliente = new Cliente();
-				cliente.setCodCliente(rs.getInt("cliente_id"));
-				cliente.setNome(rs.getString("cliente_nome"));
-
-				Emprestimo emprestimo = new Emprestimo();
-				emprestimo.setIdEmprestimo(rs.getInt("emprestimo_id"));
-				emprestimo.setCliente(cliente);
-
-				return emprestimo;
-			}
-
-		} catch (SQLException e) {
-			System.err.println("Erro ao buscar empréstimo: " + e.getMessage());
-		}
-		return null;
 	}
 
 	public int buscaProximoID() {
@@ -141,11 +105,12 @@ public class EmprestimoDAO {
 	}
 
 	public void salvaItemDeEmprestimo(ItemDeEmprestimo idm) {
-		// Implementar método para salvar item de empréstimo
+
 	}
 
 	public ItemDeEmprestimo buscaItemDeEmprestimo(int idItemEmp) {
 
 		return null;
 	}
+
 }

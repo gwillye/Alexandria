@@ -6,13 +6,12 @@ import javax.swing.table.AbstractTableModel;
 
 import model.entity.Livro;
 
-public class ModeloTabelaLivro extends AbstractTableModel{
-	
-	public static final String[] colunas = {"ISBN", "T\u00EDtulo", "Subt\u00EDtulo", "Autor", "Editora",  "G\u00EAnero", "Quantidade "};
-	
+public class ModeloTabelaLivro extends AbstractTableModel {
+
+	public static final String[] colunas = { "ISBN", "T\u00EDtulo", "Subt\u00EDtulo", "Autor", "Editora", "G\u00EAnero",
+			"Quantidade " };
+
 	private ArrayList<Livro> livros;
-	
-	
 
 	public ModeloTabelaLivro(ArrayList<Livro> livros) {
 		super();
@@ -21,21 +20,21 @@ public class ModeloTabelaLivro extends AbstractTableModel{
 
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
+
 		return livros.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
+
 		return colunas.length;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		
+
 		Livro livro = livros.get(rowIndex);
-		
+
 		if (columnIndex == 0) {
 			return livro.getIsbn();
 		} else if (columnIndex == 1) {
@@ -53,9 +52,9 @@ public class ModeloTabelaLivro extends AbstractTableModel{
 		} else {
 			return null;
 		}
-		
+
 	}
-	
+
 	public String getColumnName(int column) {
 		return colunas[column];
 	}

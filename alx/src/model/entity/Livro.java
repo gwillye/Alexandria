@@ -9,7 +9,6 @@ public class Livro {
 	private String subtitulo;
 	private String genero;
 	private int quantidadeExemplar;
-	// private Funcionario[] funcionario;
 
 	public Livro(String ISBN, String editora, String autor, String titulo, String subtitulo, String genero,
 			int quantidadeExemplar) {
@@ -77,13 +76,5 @@ public class Livro {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
-
-	// public Funcionario[] getFuncionario() {
-	// return funcionario;
-	// }
-
-	// public void setFuncionario(Funcionario[] funcionario) {
-	// this.funcionario = funcionario;
-	// }
 
 }
