@@ -30,7 +30,7 @@ public class Controladora {
 		Exemplar exemplar = exemplarDAO.buscarExemplar(idExemplar);
 		Emprestimo emprestimo = emprestimoDAO.buscaEmprestimo(idEmprestimo);
 		System.out.println("exemplar encontrado:" + exemplar.getIdExemplar() + exemplar.getSetor());
-		
+
 		ItemDeEmprestimo item = emprestimo.adicionarItem(exemplar, emprestimo);
 
 		exemplar.setStatus(0);

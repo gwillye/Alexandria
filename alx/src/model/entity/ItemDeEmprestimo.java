@@ -22,7 +22,6 @@ public class ItemDeEmprestimo {
 	}
 
 	public void itemDeEmprestimo(Emprestimo emp, Exemplar exp) {
-		
 
 	}
 
@@ -70,21 +69,21 @@ public class ItemDeEmprestimo {
 		this.exemplar = exemplar;
 	}
 
-	public int getStatus(){
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status){
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
 	public String toString() {
 		return "ItemDeEmprestimo{" +
-						"dataEmprestimoItem=" + dataEmprestimoItem +
-						", dataDevolucao=" + dataDevolucao +
-						", dataPrevistaDevolucao=" + dataPrevistaDevolucao +
-						", emprestimo=" + emprestimo +
-						", exemplar=" + exemplar +
-						'}';
-}
+				"dataEmprestimoItem=" + dataEmprestimoItem +
+				", dataDevolucao=" + dataDevolucao +
+				", dataPrevistaDevolucao=" + dataPrevistaDevolucao +
+				", emprestimo=" + emprestimo +
+				", exemplar=" + exemplar +
+				'}';
+	}
 }
