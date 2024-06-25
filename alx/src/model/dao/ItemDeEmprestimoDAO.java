@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.text.SimpleDateFormat;
 import model.entity.Emprestimo;
 import model.entity.Exemplar;
 import model.entity.ItemDeEmprestimo;
@@ -20,14 +20,15 @@ public class ItemDeEmprestimoDAO {
 
     public void salvarItemDeEmprestimo(ItemDeEmprestimo item) throws SQLException {
         String sql = "INSERT INTO ItemEmprestimo (ID_exemplar, ID_emprestimo, data_emprestimo, data_prevista_devolucao, status) VALUES (?, ?, ?, ?, ?)";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         try (Connection conn = DriverManager.getConnection(url);
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, item.getExemplar().getIdExemplar());
             pstmt.setInt(2, item.getEmprestimo().getIdEmprestimo());
-            pstmt.setDate(3, new java.sql.Date(item.getDataEmprestimoItem().getTime()));
-            pstmt.setDate(4, new java.sql.Date(item.getDataPrevistaDevolucao().getTime()));
+            pstmt.setString(3, dateFormat.format(item.getDataEmprestimoItem()));
+            pstmt.setString(4, dateFormat.format(item.getDataPrevistaDevolucao()));
             pstmt.setInt(5, item.getStatus());
 
             pstmt.executeUpdate();
