@@ -5,6 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Controladora;
+
+
+import controller.Controladora;
+
 import javax.swing.JSplitPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,6 +26,7 @@ public class JHome extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JHome jHome;
+	//static protected Controladora	controladora;
 
 	/**
 	 * Launch the application.
@@ -28,6 +35,7 @@ public class JHome extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//controladora = new Controladora();
 					JHome frame = new JHome();
 					frame.setVisible(true);
 				} catch (Exception e) {
