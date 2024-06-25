@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -206,7 +207,8 @@ public class JEmprestimos extends JFrame {
 		btnSave.setBounds(103, 271, 89, 23);
 		contentPane.add(btnSave);
 
-		textFieldData = new JTextField();
+		SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		textFieldData = new JTextField(formatoData.format(new Date()));
 		textFieldData.setColumns(10);
 		textFieldData.setBounds(207, 79, 198, 20);
 		contentPane.add(textFieldData);
@@ -215,10 +217,13 @@ public class JEmprestimos extends JFrame {
 		lblData.setBounds(86, 82, 103, 14);
 		contentPane.add(lblData);
 
+		
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
+
+		 
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(33, 349, 619, 207);
