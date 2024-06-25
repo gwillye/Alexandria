@@ -52,6 +52,43 @@ public class ClienteDAO {
     return null;
   }
 
+  public Cliente buscaClienteporID(int id) {
+
+    String sqlBuscaCliente = "SELECT p.CPF, p.nome, c.dataCadastro, p.ID " +
+    "FROM Pessoa p " +
+    "JOIN Cliente c ON p.ID = c.ID_cliente " +
+    "WHERE c.ID_cliente = ?";
+
+    try (Connection conn = DriverManager.getConnection(url);
+        PreparedStatement pstmtBuscaPessoa = conn.prepareStatement(sqlBuscaCliente)) {
+
+      pstmtBuscaPessoa.setInt(1, id);
+      ResultSet result = pstmtBuscaPessoa.executeQuery();
+
+      if (result.next()) {
+        String nome = result.getString("nome");
+        String cpfString = result.getString("cpf");
+        String dataString = result.getString("dataCadastro");
+        int idCliente = result.getInt("ID");
+
+        Cliente cliente = new Cliente(cpfString, nome,idCliente);
+
+        Date dataCadastro = null;
+        try {
+            dataCadastro = dateFormat.parse(dataString);
+        } catch (ParseException e) {
+            System.err.println("Erro ao converter data: " + e.getMessage());
+        }
+        cliente.setDataCadastro(dataCadastro);
+        return cliente;
+      }
+      
+    } catch (SQLException e) {
+      System.err.println("Erro ao buscar cliente: " + e.getMessage());
+    }
+    return null;
+  }
+
   public void salvaCliente(Cliente cli) {
     String sqlPessoa = "INSERT INTO Pessoa (CPF, nome, sobrenome, senha) VALUES (?, ?, '', '')";
     String sqlCliente = "INSERT INTO Cliente (ID_cliente, dataCadastro) VALUES (?, ?)";

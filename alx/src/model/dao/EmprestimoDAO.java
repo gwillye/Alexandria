@@ -32,10 +32,10 @@ public class EmprestimoDAO {
 			ResultSet rs = pstmtBuscaEmprestimo.executeQuery();
 
 			if (rs.next()) {
-				String cpfCliente = rs.getString("id_cliente");
+				int idCliente = rs.getInt("id_cliente");
 				String cpfFuncionario = rs.getString("id_funcionario");
 
-				Cliente cliente = clienteDAO.buscaCliente(cpfCliente);
+				Cliente cliente = clienteDAO.buscaClienteporID(idCliente);
 				Funcionario funcionario = funcionarioDAO.buscaFuncionario(cpfFuncionario);
 
 				Emprestimo emprestimo = new Emprestimo();
