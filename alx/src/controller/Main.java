@@ -1,18 +1,11 @@
 package controller;
 
-import model.dao.EmprestimoDAO;
-import model.entity.Cliente;
-import model.entity.ItemDeEmprestimo;
+import view.JHome;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Controladora cont = new Controladora();
-
-        int idExemplar = 15;
-        int idEmprestimo = 11;
-
-        ItemDeEmprestimo item = cont.adicionarItem(idExemplar, idEmprestimo);
-
-        item.toString();
+        // Inicializar a view JHome
+        JHome frame = new JHome();
+        frame.setVisible(true);
     }
 }

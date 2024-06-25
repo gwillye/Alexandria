@@ -217,13 +217,10 @@ public class JEmprestimos extends JFrame {
 		lblData.setBounds(86, 82, 103, 14);
 		contentPane.add(lblData);
 
-		
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		textArea.setEditable(false);
-
-		 
 
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(33, 349, 619, 207);
