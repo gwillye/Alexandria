@@ -108,9 +108,13 @@ public class Controladora {
             for (ItemDeEmprestimo item : itensDeEmprestimo) {
                 Exemplar exemplar = item.getExemplar();
 
-                sb.append(String.format("\n Exemplar: %s", exemplar != null ? exemplar.getLivro().getTitulo() : "N/A"));
-                sb.append(String.format("Status: %s", item.getStatus()));
-                sb.append(String.format("Data Prevista de Devolução: %s", item.getDataPrevistaDevolucao()));
+                sb.append(
+                        String.format("\n Exemplar: %s   ",
+                                exemplar != null ? exemplar.getLivro().getTitulo() : "N/A"));
+                sb.append(
+                        String.format("\n Id: %s   ", exemplar != null ? exemplar.getIdExemplar() : "N/A"));
+                sb.append(String.format("Status: %s   ", item.getStatus()));
+                sb.append(String.format("Data Prevista de Devolução: %s   ", item.getDataPrevistaDevolucao()));
                 sb.append("\n");
             }
 
